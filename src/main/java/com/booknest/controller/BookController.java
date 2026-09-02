@@ -93,8 +93,8 @@ public class BookController {
         };
         List<Book> books = new ArrayList<>();
         books.add(sampleBook(1001L, "Atomic Habits", "James Clear", "Self Help", "Small changes that create remarkable results and lasting habits.", 449, 15, 4.8, covers[0], 248));
-        books.add(sampleBook(1002L, "Rich Dad Poor Dad", "Robert T. Kiyosaki", "Business", "A clear guide to financial literacy, investing, and building wealth.", 399, 20, 4.7, covers[1], 231));
-        books.add(sampleBook(1003L, "The Psychology of Money", "Morgan Housel", "Business", "Timeless lessons about wealth, greed, happiness, and human behavior.", 349, 10, 4.8, covers[2], 219));
+        books.add(sampleBook(1002L, "Rich Dad Poor Dad", "Robert T. Kiyosaki", "Finance & Investing", "A clear guide to financial literacy, investing, and building wealth.", 399, 20, 4.7, covers[1], 231));
+        books.add(sampleBook(1003L, "The Psychology of Money", "Morgan Housel", "Finance & Investing", "Timeless lessons about wealth, greed, happiness, and human behavior.", 349, 10, 4.8, covers[2], 219));
         books.add(sampleBook(1004L, "Ikigai", "Hector Garcia", "Self Help", "Japanese wisdom for finding purpose, balance, and a longer happier life.", 399, 25, 4.5, covers[3], 188));
         books.add(sampleBook(1005L, "Deep Work", "Cal Newport", "Self Help", "Rules for focused success in a distracted world of constant notifications.", 499, 10, 4.6, covers[4], 177));
         books.add(sampleBook(1006L, "Think Like a Monk", "Jay Shetty", "Self Help", "Practical lessons for training your mind and living with greater purpose.", 449, 15, 4.5, covers[5], 164));
@@ -104,21 +104,21 @@ public class BookController {
         books.add(sampleBook(1010L, "Head First Java", "Kathy Sierra", "Programming", "A visual, brain-friendly introduction to object-oriented Java programming.", 649, 20, 4.6, covers[9], 241));
         books.add(sampleBook(1011L, "Java: The Complete Reference", "Herbert Schildt", "Programming", "A comprehensive reference for learning Java from fundamentals to advanced APIs.", 749, 15, 4.5, covers[10], 226));
         books.add(sampleBook(1012L, "The Pragmatic Programmer", "David Thomas", "Technology", "Timeless advice for becoming a thoughtful and effective software developer.", 699, 15, 4.9, covers[11], 287));
-        books.add(sampleBook(1013L, "Harry Potter", "J.K. Rowling", "Children", "An imaginative magical adventure about friendship, courage, and belonging.", 599, 20, 4.9, covers[0], 318));
+        books.add(sampleBook(1013L, "Harry Potter", "J.K. Rowling", "Kids", "An imaginative magical adventure about friendship, courage, and belonging.", 599, 20, 4.9, covers[0], 318));
         books.add(sampleBook(1014L, "The Hobbit", "J.R.R. Tolkien", "Romance", "A charming fantasy adventure that leads one unlikely hero beyond home.", 449, 15, 4.8, covers[1], 275));
         books.add(sampleBook(1015L, "The Alchemist", "Paulo Coelho", "Romance", "A lyrical journey about dreams, omens, and listening to your heart.", 299, 30, 4.8, covers[2], 311));
-        books.add(sampleBook(1016L, "The Lean Startup", "Eric Ries", "Business", "A practical method for building products through learning and iteration.", 499, 15, 4.5, covers[3], 205));
+        books.add(sampleBook(1016L, "The Lean Startup", "Eric Ries", "Entrepreneurship", "A practical method for building products through learning and iteration.", 499, 15, 4.5, covers[3], 205));
         books.add(sampleBook(1017L, "Wings of Fire", "A.P.J. Abdul Kalam", "History", "An inspiring autobiography of vision, persistence, and scientific achievement.", 349, 25, 4.8, covers[4], 267));
         books.add(sampleBook(1018L, "The Power of Now", "Eckhart Tolle", "Self Help", "A direct guide to finding peace by returning attention to the present moment.", 349, 10, 4.6, covers[5], 198));
-        books.add(sampleBook(1019L, "Zero to One", "Peter Thiel", "Business", "Bold ideas about innovation, startups, and creating the future.", 449, 20, 4.5, covers[6], 214));
-        books.add(sampleBook(1020L, "The Intelligent Investor", "Benjamin Graham", "Business", "A classic framework for disciplined, value-focused long-term investing.", 799, 15, 4.7, covers[7], 252));
+        books.add(sampleBook(1019L, "Zero to One", "Peter Thiel", "Entrepreneurship", "Bold ideas about innovation, startups, and creating the future.", 449, 20, 4.5, covers[6], 214));
+        books.add(sampleBook(1020L, "The Intelligent Investor", "Benjamin Graham", "Finance & Investing", "A classic framework for disciplined, value-focused long-term investing.", 799, 15, 4.7, covers[7], 252));
         books.add(sampleBook(1021L, "Design Patterns", "Erich Gamma", "Programming", "Elements of reusable object-oriented software for better design.", 799, 10, 4.8, covers[8], 289));
         books.add(sampleBook(1022L, "Refactoring", "Martin Fowler", "Technology", "Improving the design of existing code for maintainability.", 849, 15, 4.7, covers[9], 267));
         books.add(sampleBook(1023L, "The Art of War", "Sun Tzu", "History", "Ancient Chinese military treatise on strategy and tactics.", 299, 20, 4.6, covers[10], 345));
         books.add(sampleBook(1024L, "Sapiens", "Yuval Noah Harari", "History", "A brief history of humankind from ancient times to the present.", 449, 25, 4.8, covers[11], 412));
         books.add(sampleBook(1025L, "Thinking, Fast and Slow", "Daniel Kahneman", "Self Help", "Understanding the two systems that drive the way we think.", 399, 15, 4.7, covers[0], 278));
-        books.add(sampleBook(1026L, "Start with Why", "Simon Sinek", "Business", "How great leaders inspire everyone to take action.", 349, 20, 4.6, covers[1], 234));
-        books.add(sampleBook(1027L, "The 4-Hour Workweek", "Tim Ferriss", "Business", "Escape 9-5, live anywhere, and join the new rich.", 399, 25, 4.5, covers[2], 289));
+        books.add(sampleBook(1026L, "Start with Why", "Simon Sinek", "Entrepreneurship", "How great leaders inspire everyone to take action.", 349, 20, 4.6, covers[1], 234));
+        books.add(sampleBook(1027L, "The 4-Hour Workweek", "Tim Ferriss", "Entrepreneurship", "Escape 9-5, live anywhere, and join the new rich.", 399, 25, 4.5, covers[2], 289));
         books.add(sampleBook(1028L, "Cracking the Coding Interview", "Gayle Laakmann", "Programming", "189 programming questions and solutions for technical interviews.", 899, 10, 4.9, covers[3], 456));
         books.add(sampleBook(1029L, "Introduction to Algorithms", "Thomas Cormen", "Technology", "Comprehensive introduction to modern algorithm design and analysis.", 1299, 15, 4.8, covers[4], 512));
         books.add(sampleBook(1030L, "The Great Gatsby", "F. Scott Fitzgerald", "Romance", "A story of the decadence and excess of the Jazz Age.", 299, 20, 4.4, covers[5], 198));
@@ -240,13 +240,16 @@ public class BookController {
         if (allBooks.isEmpty()) {
             allBooks = sampleBooks();
         }
-        
-        // Filter books by keyword
+
+        // Filter books by keyword: matches title, author, category, or language
+        String needle = keyword.toLowerCase();
         List<Book> filteredBooks = new ArrayList<>();
         for (Book book : allBooks) {
-            if (book.getTitle().toLowerCase().contains(keyword.toLowerCase()) ||
-                book.getAuthor().getName().toLowerCase().contains(keyword.toLowerCase()) ||
-                book.getDescription().toLowerCase().contains(keyword.toLowerCase())) {
+            boolean matches = book.getTitle().toLowerCase().contains(needle) ||
+                (book.getAuthor() != null && book.getAuthor().getName().toLowerCase().contains(needle)) ||
+                (book.getCategory() != null && book.getCategory().getName().toLowerCase().contains(needle)) ||
+                (book.getLanguage() != null && book.getLanguage().toLowerCase().contains(needle));
+            if (matches) {
                 filteredBooks.add(book);
             }
         }

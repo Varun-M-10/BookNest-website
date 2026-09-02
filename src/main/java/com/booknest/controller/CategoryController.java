@@ -113,7 +113,7 @@ public class CategoryController {
 
     private List<Category> getSampleCategories() {
         List<Category> sampleCategories = new ArrayList<>();
-        String[] categoryNames = {"Fiction", "Non-Fiction", "Self Help", "Business", "Technology", "Programming", "History", "Romance", "Children", "Science"};
+        String[] categoryNames = {"Fiction", "Programming & Technology", "Entrepreneurship", "Self Development", "Romance", "Kids", "History", "Science", "Hindi Literature", "Marathi Literature"};
         for (String name : categoryNames) {
             Category category = new Category();
             category.setId((long) (sampleCategories.size() + 1));
