@@ -44,17 +44,26 @@
                         <div th:if="${category.imageUrl != null and !#strings.isEmpty(category.imageUrl)}" class="category-img-wrapper mb-2">
                             <img th:src="${category.imageUrl}" th:alt="${category.name}" class="img-fluid rounded-3" style="height: 120px; object-fit: cover; width: 100%;">
                         </div>
-                        <div th:unless="${category.imageUrl != null and !#strings.isEmpty(category.imageUrl)}" class="category-icon-wrapper mx-auto d-flex align-items-center justify-content-center rounded-circle shadow-sm" style="width: 80px; height: 80px; background: white;">
-                            <i class="fas fa-2x" style="color: var(--primary);"
-                               th:classappend="${#strings.equalsIgnoreCase(category.name, 'Fiction') ? 'fa-feather-alt' :
-                                               (#strings.equalsIgnoreCase(category.name, 'Business') ? 'fa-briefcase' :
-                                               (#strings.equalsIgnoreCase(category.name, 'Technology') or #strings.equalsIgnoreCase(category.name, 'Programming') ? 'fa-laptop-code' :
-                                               (#strings.equalsIgnoreCase(category.name, 'Self Help') ? 'fa-brain' :
-                                               (#strings.equalsIgnoreCase(category.name, 'History') ? 'fa-landmark' :
-                                               (#strings.equalsIgnoreCase(category.name, 'Romance') ? 'fa-heart' :
-                                               (#strings.equalsIgnoreCase(category.name, 'Children') ? 'fa-child' :
-                                               (#strings.equalsIgnoreCase(category.name, 'Science') ? 'fa-flask' : 'fa-book-open'))))))) }">
-                            </i>
+                        <div th:unless="${category.imageUrl != null and !#strings.isEmpty(category.imageUrl)}" class="category-icon-wrapper mx-auto d-flex align-items-center justify-content-center rounded-circle shadow-sm" style="width: 80px; height: 80px; background: white;" th:switch="${category.name}">
+                            <i th:case="'Fiction'" class="fas fa-2x fa-feather-alt" style="color: var(--primary);"></i>
+                            <i th:case="'Entrepreneurship'" class="fas fa-2x fa-briefcase" style="color: var(--primary);"></i>
+                            <i th:case="'Programming &amp; Technology'" class="fas fa-2x fa-laptop-code" style="color: var(--primary);"></i>
+                            <i th:case="'Self Development'" class="fas fa-2x fa-brain" style="color: var(--primary);"></i>
+                            <i th:case="'History'" class="fas fa-2x fa-landmark" style="color: var(--primary);"></i>
+                            <i th:case="'Romance'" class="fas fa-2x fa-heart" style="color: var(--primary);"></i>
+                            <i th:case="'Kids'" class="fas fa-2x fa-child" style="color: var(--primary);"></i>
+                            <i th:case="'Science'" class="fas fa-2x fa-flask" style="color: var(--primary);"></i>
+                            <i th:case="'Poetry'" class="fas fa-2x fa-feather" style="color: var(--primary);"></i>
+                            <i th:case="'Spirituality'" class="fas fa-2x fa-om" style="color: var(--primary);"></i>
+                            <i th:case="'Competitive Exams'" class="fas fa-2x fa-graduation-cap" style="color: var(--primary);"></i>
+                            <i th:case="'Education &amp; Academics'" class="fas fa-2x fa-book-reader" style="color: var(--primary);"></i>
+                            <i th:case="'Management'" class="fas fa-2x fa-users" style="color: var(--primary);"></i>
+                            <i th:case="'Biography &amp; Memoir'" class="fas fa-2x fa-user" style="color: var(--primary);"></i>
+                            <i th:case="'Mystery &amp; Thriller'" class="fas fa-2x fa-magnifying-glass" style="color: var(--primary);"></i>
+                            <i th:case="'Health &amp; Wellness'" class="fas fa-2x fa-heart-pulse" style="color: var(--primary);"></i>
+                            <i th:case="'Finance &amp; Investing'" class="fas fa-2x fa-sack-dollar" style="color: var(--primary);"></i>
+                            <i th:case="'Philosophy'" class="fas fa-2x fa-yin-yang" style="color: var(--primary);"></i>
+                            <i th:case="*" th:class="${#strings.contains(category.name, 'Literature')} ? 'fas fa-2x fa-language' : 'fas fa-2x fa-book-open'" style="color: var(--primary);"></i>
                         </div>
                     </div>
                     

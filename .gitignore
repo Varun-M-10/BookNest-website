@@ -1,0 +1,15 @@
+target/
+*.class
+
+# Local development H2 database (see DataSourceConfig / DataInitializer).
+# This file is a snapshot of local sample data; committing it is what let a
+# stale catalog come back after a `git checkout`/`git pull` even after
+# DataInitializer.java was edited. Delete it locally to force a full reseed.
+data/*.db
+data/*.trace.db
+data/*.lock.db
+
+*.log
+.idea/
+*.iml
+.vscode/

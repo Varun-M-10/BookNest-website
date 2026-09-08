@@ -14,7 +14,10 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import java.util.ArrayList;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Controller for home page and general pages
@@ -26,6 +29,18 @@ public class HomeController {
     private final BookService bookService;
     private final CategoryService categoryService;
     private final UserService userService;
+
+    /**
+     * Curated, ordered subset of the canonical category taxonomy shown on the
+     * homepage "Featured Categories" section. Every name here must match a
+     * real {@link Category#getName()} exactly; any that can't be resolved to
+     * an actual category are simply skipped (never shown as a dead link).
+     */
+    private static final String[] HOME_CATEGORY_NAMES = {
+        "Fiction", "Programming & Technology", "Entrepreneurship", "Self Development",
+        "Romance", "Kids", "Marathi Literature", "Hindi Literature",
+        "Competitive Exams", "Biography & Memoir", "Mystery & Thriller", "Finance & Investing"
+    };
 
     @GetMapping({"/", "/home"})
     public String home(Model model) {
@@ -52,8 +67,31 @@ public class HomeController {
         model.addAttribute("featuredBooks", featuredBooks);
         model.addAttribute("bestSellers", bestSellers);
         model.addAttribute("categories", categories);
+        model.addAttribute("homeCategories", buildHomeCategories());
 
         return "home";
+    }
+
+    /**
+     * Resolves {@link #HOME_CATEGORY_NAMES} to their real, database-backed
+     * {@link Category} entities (with books eagerly fetched so the homepage
+     * can show an accurate book count per card) so every homepage category
+     * card links to the actual category id and count - never a hardcoded or
+     * guessed one.
+     */
+    private List<Category> buildHomeCategories() {
+        Map<String, Category> byName = new LinkedHashMap<>();
+        for (Category c : categoryService.getAllCategoriesWithBooks()) {
+            byName.put(c.getName(), c);
+        }
+        List<Category> homeCategories = new ArrayList<>();
+        for (String name : HOME_CATEGORY_NAMES) {
+            Category category = byName.get(name);
+            if (category != null) {
+                homeCategories.add(category);
+            }
+        }
+        return homeCategories;
     }
 
     @GetMapping("/about")

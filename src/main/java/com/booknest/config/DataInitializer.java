@@ -2,6 +2,7 @@ package com.booknest.config;
 
 import com.booknest.entity.*;
 import com.booknest.repository.*;
+import com.booknest.util.CategoryCatalog;
 import lombok.RequiredArgsConstructor;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -102,54 +103,46 @@ public class DataInitializer implements CommandLineRunner {
         }
     }
 
+    /**
+     * Reconciles the database against {@link CategoryCatalog#CATEGORIES}, the single
+     * canonical category list. Unlike a one-shot "insert only if the table is empty"
+     * seed, this runs an existence check per category every startup, so any category
+     * that is missing (e.g. left over from an older, smaller taxonomy, or never
+     * inserted due to a partial prior run) is added automatically instead of silently
+     * staying absent - which is what previously caused newly-added categories to have
+     * no books: the category row itself didn't exist, or a stale duplicate did, so
+     * lookups by name/id fell out of sync with what the book data referenced.
+     */
     private void initializeCategories() {
-        if (categoryRepository.count() == 0) {
-            String[][] categories = {
-                {"Fiction", "Immersive stories and imaginative worlds from celebrated novelists"},
-                {"Programming & Technology", "Master programming languages, software craft, and emerging technology"},
-                {"Entrepreneurship", "Insights on startups, innovation, and building the future"},
-                {"Self Development", "Practical wisdom to build habits, focus, and a purposeful life"},
-                {"Romance", "Heartfelt love stories that stay with you"},
-                {"Kids", "Delightful stories and lessons for young readers"},
-                {"History", "Journeys through the past that shape our present"},
-                {"Science", "Explorations of the universe, life, and human knowledge"},
-                {"Marathi Literature", "Celebrated novels, plays, and poetry from Maharashtra"},
-                {"Hindi Literature", "Timeless prose and poetry from Hindi's finest writers"},
-                {"Bengali Literature", "Rich storytelling and verse from Bengal's literary tradition"},
-                {"Gujarati Literature", "Classic and modern voices from Gujarati literature"},
-                {"Tamil Literature", "Epics, verse, and fiction from Tamil literary heritage"},
-                {"Telugu Literature", "Landmark works of Telugu poetry, drama, and prose"},
-                {"Kannada Literature", "Award-winning novels and epics from Kannada literature"},
-                {"Malayalam Literature", "Acclaimed fiction and memoirs from Kerala's writers"},
-                {"Punjabi Literature", "Powerful stories and poetry from Punjab"},
-                {"Urdu Literature", "Evocative poetry and prose from the Urdu tradition"},
-                {"Spirituality", "Guidance for inner peace and a mindful life"},
-                {"Education & Academics", "Reference and skill-building titles for lifelong learners"},
-                {"Competitive Exams", "Preparation guides for entrance and competitive examinations"},
-                {"Management", "Leadership and organizational wisdom for the modern workplace"},
-                {"Biography & Memoir", "Real lives, told in their own extraordinary words"},
-                {"Mystery & Thriller", "Gripping suspense and page-turning whodunits"},
-                {"Poetry", "Verses that capture emotion, beauty, and thought"},
-                {"Health & Wellness", "Guides to a healthier body and calmer mind"},
-                {"Finance & Investing", "Practical lessons on money, markets, and wealth"},
-                {"Philosophy", "Enduring ideas from history's great thinkers"}
-            };
-
-            for (String[] cat : categories) {
+        int inserted = 0;
+        for (String[] cat : CategoryCatalog.CATEGORIES) {
+            String name = cat[0].trim();
+            if (categoryRepository.findByName(name).isEmpty()) {
                 Category category = new Category();
-                category.setName(cat[0]);
+                category.setName(name);
                 category.setDescription(cat[1]);
                 categoryRepository.save(category);
+                inserted++;
             }
-            System.out.println("✓ Categories initialized (" + categories.length + ")");
+        }
+        if (inserted > 0) {
+            System.out.println("✓ Categories reconciled (" + inserted + " added, "
+                + CategoryCatalog.CATEGORIES.length + " total canonical categories)");
         }
         for (Category c : categoryRepository.findAll()) {
             categoryMap.put(c.getName(), c);
         }
     }
 
+    /**
+     * Reconciles authors the same way {@link #initializeCategories()} reconciles
+     * categories: an existence check per author on every startup (not just when the
+     * table is empty), so an author referenced by a book newly added to this file is
+     * never missing and never inserted twice. Authors have no admin-editable fields, so
+     * it is safe to also keep an existing author's biography in sync with this file.
+     */
     private void initializeAuthors() {
-        if (authorRepository.count() == 0) {
+        {
             String[][] authors = {
                 // English
                 {"James Clear", "American author and speaker focused on habits and continuous improvement."},
@@ -286,24 +279,33 @@ public class DataInitializer implements CommandLineRunner {
                 {"Qurratulain Hyder", "Urdu novelist known for epic, historical fiction."}
             };
 
-            for (String[] author : authors) {
-                Author auth = new Author();
-                auth.setName(author[0]);
-                auth.setBiography(author[1]);
-                authorRepository.save(auth);
+            for (Author a : authorRepository.findAll()) {
+                authorMap.put(a.getName(), a);
             }
-            System.out.println("✓ Authors initialized (" + authors.length + ")");
-        }
-        for (Author a : authorRepository.findAll()) {
-            authorMap.put(a.getName(), a);
+
+            int inserted = 0;
+            for (String[] author : authors) {
+                String name = author[0];
+                Author auth = authorMap.get(name);
+                if (auth == null) {
+                    auth = new Author();
+                    auth.setName(name);
+                    auth.setBiography(author[1]);
+                    auth = authorRepository.save(auth);
+                    authorMap.put(name, auth);
+                    inserted++;
+                } else if (!author[1].equals(auth.getBiography())) {
+                    auth.setBiography(author[1]);
+                    authorRepository.save(auth);
+                }
+            }
+            if (inserted > 0) {
+                System.out.println("✓ Authors reconciled (" + inserted + " added, " + authors.length + " total canonical authors)");
+            }
         }
     }
 
     private void initializeBooks() {
-        if (bookRepository.count() > 0) {
-            return;
-        }
-
         java.util.List<Book> books = new java.util.ArrayList<>();
 
         // ==================== ENGLISH ====================
@@ -724,8 +726,98 @@ public class DataInitializer implements CommandLineRunner {
             "Qurratulain Hyder's monumental novel spanning centuries of Indian history, River of Fire.",
             349, 15, 4.7, 432, "Maktaba Jamia", false, false));
 
-        bookRepository.saveAll(books);
-        System.out.println("✓ Books initialized (" + books.size() + " titles across 11 languages)");
+        // Books above are grouped by language for readability while authoring them, but
+        // saving them in that grouped order would make the default "Recommended" view
+        // (plain insertion order, page 1 of /books) show 12 English titles in a row before
+        // any other language ever appears - effectively burying the whole multilingual
+        // catalog several pages deep. Interleaving round-robin across languages here means
+        // the very first page mixes in every language immediately.
+        reconcileBooks(interleaveByLanguage(books));
+    }
+
+    /**
+     * Reconciles the database against the canonical seed list above the same way
+     * {@link #initializeCategories()} reconciles categories - an existence check per
+     * book on every startup, not a one-shot "only seed if the table is completely
+     * empty" guard. That old guard is exactly what caused this project's persistent
+     * seeding problem: once the books table had any row at all, editing prices,
+     * categories, or descriptions in this file and restarting the app changed
+     * nothing, because {@code initializeBooks()} returned immediately. Now:
+     *   - a title that already exists (matched by its unique {@link Book#getTitle()})
+     *     has its catalog fields (price, discount, rating, category, language,
+     *     description, publisher, pages, author, featured/best-seller flags) synced
+     *     to this file, so an edited price or a book moved to a different category
+     *     actually takes effect on restart;
+     *   - a title that doesn't exist yet is inserted, so a newly added book (e.g. to
+     *     fill a category that previously had none) actually appears;
+     *   - a title is never inserted twice, no matter how many times the app restarts.
+     * Fields the admin panel can change at runtime for an existing book - stock,
+     * sold/view counts, rating count, isbn, cover image, published date - are
+     * deliberately left untouched here so this reconciliation can never undo real
+     * inventory or admin activity; only the catalog-defining fields this file itself
+     * declares are kept in sync.
+     */
+    private void reconcileBooks(java.util.List<Book> seedBooks) {
+        Map<String, Book> existingByTitle = new HashMap<>();
+        for (Book existing : bookRepository.findAll()) {
+            existingByTitle.put(existing.getTitle(), existing);
+        }
+
+        java.util.List<Book> toInsert = new java.util.ArrayList<>();
+        int updated = 0;
+        for (Book seed : seedBooks) {
+            Book existing = existingByTitle.get(seed.getTitle());
+            if (existing == null) {
+                toInsert.add(seed);
+                continue;
+            }
+            existing.setDescription(seed.getDescription());
+            existing.setAuthor(seed.getAuthor());
+            existing.setCategory(seed.getCategory());
+            existing.setLanguage(seed.getLanguage());
+            existing.setPrice(seed.getPrice());
+            existing.setDiscount(seed.getDiscount());
+            existing.setRating(seed.getRating());
+            existing.setPages(seed.getPages());
+            existing.setPublisher(seed.getPublisher());
+            existing.setFeatured(seed.getFeatured());
+            existing.setBestSeller(seed.getBestSeller());
+            existing.setDeleted(false);
+            bookRepository.save(existing);
+            updated++;
+        }
+        if (!toInsert.isEmpty()) {
+            bookRepository.saveAll(toInsert);
+        }
+        if (!toInsert.isEmpty() || updated > 0) {
+            System.out.println("✓ Books reconciled (" + toInsert.size() + " added, " + updated
+                + " updated, " + seedBooks.size() + " total canonical titles across 11 languages)");
+        }
+    }
+
+    /**
+     * Reorders books round-robin by language (preserving each language's relative
+     * order and the order languages first appear) so the default catalog view isn't
+     * dominated by whichever language happens to be authored first in the list above.
+     */
+    private java.util.List<Book> interleaveByLanguage(java.util.List<Book> source) {
+        Map<String, java.util.ArrayDeque<Book>> byLanguage = new java.util.LinkedHashMap<>();
+        for (Book book : source) {
+            byLanguage.computeIfAbsent(book.getLanguage(), k -> new java.util.ArrayDeque<>()).add(book);
+        }
+        java.util.List<Book> result = new java.util.ArrayList<>(source.size());
+        boolean addedAny = true;
+        while (addedAny) {
+            addedAny = false;
+            for (java.util.ArrayDeque<Book> queue : byLanguage.values()) {
+                Book next = queue.poll();
+                if (next != null) {
+                    result.add(next);
+                    addedAny = true;
+                }
+            }
+        }
+        return result;
     }
 
     /**
