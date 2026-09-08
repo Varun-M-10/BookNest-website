@@ -31,6 +31,7 @@ com\booknest\dto\UserLoginDto.class
 com\booknest\service\OrderService.class
 com\booknest\controller\CategoryController.class
 com\booknest\repository\OrderRepository.class
+com\booknest\util\CategoryCatalog.class
 com\booknest\controller\GlobalControllerAdvice.class
 com\booknest\config\DataInitializer.class
 com\booknest\controller\CheckoutController.class

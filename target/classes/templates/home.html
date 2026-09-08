@@ -52,41 +52,28 @@
             </div>
             
             <div class="row g-4">
-                <div class="col-lg-3 col-md-6 col-12" data-aos="fade-up" data-aos-delay="100">
-                    <div class="category-card">
-                        <div class="category-icon">
-                            <i class="fas fa-feather-alt"></i>
+                <div class="col-lg-3 col-md-6 col-12" th:each="category, iterStat : ${homeCategories}" data-aos="fade-up" th:data-aos-delay="${(iterStat.index % 4 + 1) * 100}">
+                    <a th:href="@{/category/{id}(id=${category.id})}" class="d-block text-decoration-none text-reset">
+                        <div class="category-card">
+                            <div class="category-icon" th:switch="${category.name}">
+                                <i th:case="'Fiction'" class="fas fa-feather-alt"></i>
+                                <i th:case="'Programming &amp; Technology'" class="fas fa-laptop-code"></i>
+                                <i th:case="'Entrepreneurship'" class="fas fa-briefcase"></i>
+                                <i th:case="'Self Development'" class="fas fa-brain"></i>
+                                <i th:case="'Romance'" class="fas fa-heart"></i>
+                                <i th:case="'Kids'" class="fas fa-child"></i>
+                                <i th:case="'Marathi Literature'" class="fas fa-language"></i>
+                                <i th:case="'Hindi Literature'" class="fas fa-language"></i>
+                                <i th:case="'Competitive Exams'" class="fas fa-graduation-cap"></i>
+                                <i th:case="'Biography &amp; Memoir'" class="fas fa-user"></i>
+                                <i th:case="'Mystery &amp; Thriller'" class="fas fa-magnifying-glass"></i>
+                                <i th:case="'Finance &amp; Investing'" class="fas fa-sack-dollar"></i>
+                                <i th:case="*" class="fas fa-book-open"></i>
+                            </div>
+                            <h5 th:text="${category.name}">Category</h5>
+                            <p class="text-muted small" th:text="${(category.books != null ? category.books.size() : 0)} + ' Books'">0 Books</p>
                         </div>
-                        <h5>Fiction</h5>
-                        <p class="text-muted small">Explore imaginary worlds</p>
-                    </div>
-                </div>
-                <div class="col-lg-3 col-md-6 col-12" data-aos="fade-up" data-aos-delay="200">
-                    <div class="category-card">
-                        <div class="category-icon">
-                            <i class="fas fa-briefcase"></i>
-                        </div>
-                        <h5>Business</h5>
-                        <p class="text-muted small">Grow your knowledge</p>
-                    </div>
-                </div>
-                <div class="col-lg-3 col-md-6 col-12" data-aos="fade-up" data-aos-delay="300">
-                    <div class="category-card">
-                        <div class="category-icon">
-                            <i class="fas fa-laptop-code"></i>
-                        </div>
-                        <h5>Technology</h5>
-                        <p class="text-muted small">Stay ahead in tech</p>
-                    </div>
-                </div>
-                <div class="col-lg-3 col-md-6 col-12" data-aos="fade-up" data-aos-delay="400">
-                    <div class="category-card">
-                        <div class="category-icon">
-                            <i class="fas fa-brain"></i>
-                        </div>
-                        <h5>Self Help</h5>
-                        <p class="text-muted small">Transform your life</p>
-                    </div>
+                    </a>
                 </div>
             </div>
             
