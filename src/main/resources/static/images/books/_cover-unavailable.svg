@@ -1,9 +1,0 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="400" height="600" viewBox="0 0 400 600">
-  <rect width="400" height="600" fill="#f3efe9"/>
-  <rect x="1" y="1" width="398" height="598" fill="none" stroke="#d8cfc0" stroke-width="2"/>
-  <g fill="#6F4E37" opacity="0.55">
-    <path d="M140 230h60v140c0 6-8 10-14 6l-16-11-16 11c-6 4-14 0-14-6z"/>
-    <path d="M200 230h60v140c0 6-8 10-14 6l-16-11-16 11c-6 4-14 0-14-6z" transform="translate(0,0)"/>
-  </g>
-  <text x="200" y="410" font-family="Georgia, 'Playfair Display', serif" font-size="18" fill="#8a7a68" text-anchor="middle">Cover image unavailable</text>
-</svg>
