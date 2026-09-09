@@ -108,6 +108,13 @@ public class AdminController {
                 book.setImageUrl("https://images.unsplash.com/photo-1544947950-fa07a98d237f?w=300&h=400&fit=crop");
             }
 
+            // A blank ISBN is a deliberate, allowed state (an admin leaving it
+            // unset rather than inventing one) - store it as SQL NULL, not "",
+            // since isbn is a unique column and two rows with "" would collide.
+            if (book.getIsbn() != null && book.getIsbn().trim().isEmpty()) {
+                book.setIsbn(null);
+            }
+
             bookService.saveBook(book);
             redirectAttributes.addFlashAttribute("success", "Book saved successfully!");
         } catch (Exception e) {

@@ -83,7 +83,8 @@
                 <div class="col-lg-3 col-md-6 col-12" th:each="book : ${featuredBooks}" data-aos="fade-up">
                     <div class="card h-100">
                         <div class="position-relative">
-                            <img th:src="${book.imageUrl}" class="card-img-top book-card-img" alt="Book Cover">
+                            <img th:src="${book.imageUrl}" class="card-img-top book-card-img" th:alt="${book.title + ' book cover'}"
+                                 onerror="this.onerror=null;this.src='/images/books/_cover-unavailable.svg';">
                             <span class="badge-discount" th:if="${book.discount > 0}" 
                                   th:text="'-' + ${book.discount} + '%'"></span>
                         </div>
@@ -132,7 +133,8 @@
                     <div class="swiper-slide" th:each="book : ${bestSellers}">
                         <div class="card h-100">
                             <div class="position-relative">
-                                <img th:src="${book.imageUrl}" class="card-img-top book-card-img" alt="Book Cover">
+                                <img th:src="${book.imageUrl}" class="card-img-top book-card-img" th:alt="${book.title + ' book cover'}"
+                                 onerror="this.onerror=null;this.src='/images/books/_cover-unavailable.svg';">
                                 <span class="badge bg-danger position-absolute top-0 start-0 m-3">Best Seller</span>
                             </div>
                             <div class="card-body">
