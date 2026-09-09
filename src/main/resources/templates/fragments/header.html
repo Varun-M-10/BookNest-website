@@ -223,6 +223,15 @@
             box-shadow: 0 5px 20px rgba(0,0,0,0.08);
             transition: transform 0.3s;
             cursor: pointer;
+            /* Fill the Bootstrap column's stretched height (the row is a
+               flex container, so the column is already as tall as its
+               row's tallest card) instead of sitting at its own shorter
+               content height with a blank gap below - that gap is what
+               made a shorter neighboring card look "different sized" next
+               to a card with a longer name/description. */
+            height: 100%;
+            display: flex;
+            flex-direction: column;
         }
 
         a.category-card:hover {
@@ -233,6 +242,20 @@
             font-size: 3rem;
             color: var(--primary);
             margin-bottom: 1rem;
+        }
+
+        /* Reserve a consistent minimum for the name (2 lines) and
+           description (enough lines for the longest one shown here) so
+           every homepage category card lands at the same height in every
+           row, not just within one row - the same fix applied to the
+           Categories page's cards below, adapted to this simpler
+           icon/h5/p markup instead of Bootstrap's card-title/card-text. */
+        a.category-card h5 {
+            min-height: 3rem;
+        }
+
+        a.category-card p {
+            min-height: 5.5rem;
         }
 
         /* Categories page grid (categories.html: .card.category-card).
