@@ -37,13 +37,7 @@ public class Book {
     @Column(nullable = false, length = 2000)
     private String description;
 
-    // Nullable: a small number of catalog titles (mostly older regional-
-    // language editions) have no ISBN that could be verified against a
-    // reliable bibliographic source. Per policy this leaves the field
-    // blank rather than storing a fabricated number - unique is kept, and
-    // multiple NULLs are allowed under a SQL UNIQUE constraint (NULL is
-    // never considered equal to another NULL), so this doesn't collide.
-    @Column(unique = true)
+    @Column(nullable = false, unique = true)
     private String isbn;
 
     @Column(nullable = false)
