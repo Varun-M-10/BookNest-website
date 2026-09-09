@@ -91,45 +91,17 @@ public class DataInitializer implements CommandLineRunner {
         try (Connection conn = dataSource.getConnection(); Statement stmt = conn.createStatement()) {
             try {
                 stmt.execute("ALTER TABLE books MODIFY COLUMN isbn VARCHAR(255) NULL");
-                log.info("✓ isbn column ALTER (MySQL syntax) succeeded");
+                log.info("✓ isbn column confirmed nullable (MySQL syntax)");
+                return;
             } catch (Exception mysqlAttemptFailed) {
-                log.warn("isbn ALTER (MySQL syntax) did not apply: {}", mysqlAttemptFailed.getMessage());
-                try {
-                    stmt.execute("ALTER TABLE books ALTER COLUMN isbn SET NULL");
-                    log.info("✓ isbn column ALTER (H2 syntax) succeeded");
-                } catch (Exception h2AttemptFailed) {
-                    log.warn("isbn ALTER (H2 syntax) did not apply either: {}", h2AttemptFailed.getMessage());
-                }
+                // Not MySQL, or already nullable in a way that syntax rejects - try H2.
             }
-
-            // Neither ALTER applying isn't necessarily a problem - a database
-            // Hibernate created fresh from the current (already-nullable)
-            // entity mapping never had a NOT NULL constraint to relax. What
-            // matters is the actual current state, so check it directly
-            // (information_schema is queryable the same way on MySQL and H2)
-            // and say so loudly if it's still NOT NULL - that combination is
-            // exactly what crashed startup once already, and per-book error
-            // handling in seedCatalog() means it now degrades to "this one
-            // book fails to save" instead of "the whole app won't start",
-            // but it's still a real, loggable problem worth knowing about.
-            try (var rs = stmt.executeQuery(
-                    "SELECT IS_NULLABLE FROM INFORMATION_SCHEMA.COLUMNS "
-                            + "WHERE TABLE_NAME = 'BOOKS' AND COLUMN_NAME = 'ISBN'")) {
-                if (rs.next()) {
-                    String isNullable = rs.getString(1);
-                    if ("NO".equalsIgnoreCase(isNullable)) {
-                        log.error("⚠ isbn column is STILL NOT NULL after both ALTER attempts - "
-                                + "the database user Railway is using most likely lacks ALTER/DDL "
-                                + "privileges. Books with no verified ISBN will fail to save (and be "
-                                + "skipped, not crash the app - see seedCatalog()) until this is fixed "
-                                + "directly against the database, e.g.: "
-                                + "ALTER TABLE books MODIFY COLUMN isbn VARCHAR(255) NULL;");
-                    } else {
-                        log.info("✓ isbn column confirmed nullable (IS_NULLABLE={})", isNullable);
-                    }
-                }
-            } catch (Exception verifyFailed) {
-                log.debug("Could not verify isbn nullability via information_schema: {}", verifyFailed.getMessage());
+            try {
+                stmt.execute("ALTER TABLE books ALTER COLUMN isbn SET NULL");
+                log.info("✓ isbn column confirmed nullable (H2 syntax)");
+            } catch (Exception h2AttemptFailed) {
+                log.debug("isbn nullable ALTER skipped (already nullable, or table not created yet): {}",
+                        h2AttemptFailed.getMessage());
             }
         } catch (Exception e) {
             log.warn("⚠ Could not verify/relax isbn NOT NULL constraint: {}", e.getMessage());
@@ -249,7 +221,6 @@ public class DataInitializer implements CommandLineRunner {
         int bookCount = 0;
         int updated = 0;
         int reviewCount = 0;
-        int failed = 0;
         Set<String> catalogTitles = new HashSet<>();
         Random rnd = new Random(20260906L);
         for (JsonNode b : root.get("books")) {
@@ -261,83 +232,66 @@ public class DataInitializer implements CommandLineRunner {
                 continue;
             }
 
-            // One bad row (a constraint the live database enforces more
-            // strictly than the current entity mapping expects, a value
-            // catalog.json didn't anticipate, anything unforeseen) must
-            // never be able to crash startup and take the whole site down
-            // with it - that happened once already, from an ISBN this
-            // reconciliation tried to null out on a database whose isbn
-            // column a runtime ALTER couldn't actually make nullable (a
-            // managed database's application user commonly lacks DDL
-            // privileges, silently short-circuiting relaxIsbnNotNullConstraint
-            // above). So: catch per book, log it, keep going - a partially
-            // reconciled catalog serving traffic beats no catalog at all.
-            boolean isNew = (existingByTitle.get(title) == null);
-            try {
-                Book book = existingByTitle.get(title);
-                if (isNew) {
-                    book = new Book();
+            Book book = existingByTitle.get(title);
+            boolean isNew = (book == null);
+            if (isNew) {
+                book = new Book();
+            }
+
+            book.setTitle(title);
+            book.setDescription(b.get("description").asText());
+            book.setIsbn(textOrNull(b.get("isbn")));
+            book.setPublisher(b.get("publisher").asText());
+            book.setLanguage(b.get("language").asText());
+            book.setPages(b.get("pages").asInt());
+            book.setPrice(BigDecimal.valueOf(b.get("price").asDouble()));
+            book.setDiscount(BigDecimal.valueOf(b.get("discount").asDouble()));
+            book.setImageUrl(resolveImageUrl(b.get("image").asText()));
+            book.setFeatured(b.get("featured").asBoolean());
+            book.setBestSeller(b.get("bestSeller").asBoolean());
+            book.setCategory(category);
+            book.setAuthor(author);
+            book.setDeleted(false);
+            LocalDate publishedDate = LocalDate.parse(b.get("publishedDate").asText());
+            book.setPublishedDate(publishedDate.atStartOfDay());
+
+            // Store-owned fields: seeded only for a brand-new title, then left
+            // alone forever after so this reconciliation can never undo real
+            // stock changes, sold/view counts, or the rating a book has earned
+            // from its (never re-seeded) reviews.
+            if (isNew) {
+                book.setStock(b.get("stock").asInt());
+                book.setRating(BigDecimal.valueOf(b.get("rating").asDouble()));
+                book.setRatingCount(b.get("ratingCount").asInt());
+                book.setNewArrival(rnd.nextDouble() < 0.12);
+                book.setSoldCount(rnd.nextInt(300));
+                book.setViewCount(rnd.nextInt(1500));
+            }
+
+            book = bookRepository.save(book);
+            existingByTitle.put(title, book);
+            bookCount++;
+            if (isNew) {
+                for (JsonNode rv : b.get("reviews")) {
+                    User reviewer = reviewers.get(rv.get("reviewerIndex").asInt());
+                    Review review = new Review();
+                    review.setUser(reviewer);
+                    review.setBook(book);
+                    review.setComment(rv.get("comment").asText());
+                    review.setRating(rv.get("rating").asInt());
+                    review.setApproved(true);
+                    review = reviewRepository.save(review);
+
+                    // createdAt is force-set to "now" by @PrePersist; re-save to back-date it
+                    // realistically now that the row already has an id (an update, not an insert).
+                    LocalDateTime backdated = LocalDateTime.now().minusDays(rv.get("daysAgo").asInt());
+                    review.setCreatedAt(backdated);
+                    review.setUpdatedAt(backdated);
+                    reviewRepository.save(review);
+                    reviewCount++;
                 }
-
-                book.setTitle(title);
-                book.setDescription(b.get("description").asText());
-                book.setIsbn(textOrNull(b.get("isbn")));
-                book.setPublisher(b.get("publisher").asText());
-                book.setLanguage(b.get("language").asText());
-                book.setPages(b.get("pages").asInt());
-                book.setPrice(BigDecimal.valueOf(b.get("price").asDouble()));
-                book.setDiscount(BigDecimal.valueOf(b.get("discount").asDouble()));
-                book.setImageUrl(resolveImageUrl(b.get("image").asText()));
-                book.setFeatured(b.get("featured").asBoolean());
-                book.setBestSeller(b.get("bestSeller").asBoolean());
-                book.setCategory(category);
-                book.setAuthor(author);
-                book.setDeleted(false);
-                LocalDate publishedDate = LocalDate.parse(b.get("publishedDate").asText());
-                book.setPublishedDate(publishedDate.atStartOfDay());
-
-                // Store-owned fields: seeded only for a brand-new title, then left
-                // alone forever after so this reconciliation can never undo real
-                // stock changes, sold/view counts, or the rating a book has earned
-                // from its (never re-seeded) reviews.
-                if (isNew) {
-                    book.setStock(b.get("stock").asInt());
-                    book.setRating(BigDecimal.valueOf(b.get("rating").asDouble()));
-                    book.setRatingCount(b.get("ratingCount").asInt());
-                    book.setNewArrival(rnd.nextDouble() < 0.12);
-                    book.setSoldCount(rnd.nextInt(300));
-                    book.setViewCount(rnd.nextInt(1500));
-                }
-
-                book = bookRepository.save(book);
-                existingByTitle.put(title, book);
-                bookCount++;
-                if (isNew) {
-                    for (JsonNode rv : b.get("reviews")) {
-                        User reviewer = reviewers.get(rv.get("reviewerIndex").asInt());
-                        Review review = new Review();
-                        review.setUser(reviewer);
-                        review.setBook(book);
-                        review.setComment(rv.get("comment").asText());
-                        review.setRating(rv.get("rating").asInt());
-                        review.setApproved(true);
-                        review = reviewRepository.save(review);
-
-                        // createdAt is force-set to "now" by @PrePersist; re-save to back-date it
-                        // realistically now that the row already has an id (an update, not an insert).
-                        LocalDateTime backdated = LocalDateTime.now().minusDays(rv.get("daysAgo").asInt());
-                        review.setCreatedAt(backdated);
-                        review.setUpdatedAt(backdated);
-                        reviewRepository.save(review);
-                        reviewCount++;
-                    }
-                } else {
-                    updated++;
-                }
-            } catch (Exception e) {
-                failed++;
-                log.error("⚠ Skipping '{}' - failed to {} during catalog reconciliation: {}",
-                        title, isNew ? "insert" : "update", e.getMessage());
+            } else {
+                updated++;
             }
         }
 
@@ -363,7 +317,6 @@ public class DataInitializer implements CommandLineRunner {
         System.out.println("✓ Catalog reconciled: " + categoriesInserted + " categories added, " + authorsInserted
                 + " authors added, " + (bookCount - updated) + " books added, " + updated
                 + " books updated, " + retired + " retired (no longer in catalog.json), "
-                + failed + " skipped due to errors, "
                 + reviewers.size() + " reviewers, " + reviewCount + " new reviews");
     }
 
