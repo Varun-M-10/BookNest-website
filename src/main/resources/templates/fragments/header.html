@@ -210,7 +210,12 @@
             padding: 5rem 0;
         }
         
-        .category-card {
+        /* Homepage "Featured Categories" cards (home.html: a.category-card).
+           Scoped to the <a> tag so it never reaches the Categories page's
+           Bootstrap .card.category-card markup below, which has its own
+           box model (Bootstrap already supplies its border-radius/shadow/
+           background there; this padding/hover would otherwise double up). */
+        a.category-card {
             text-align: center;
             padding: 2rem;
             border-radius: 15px;
@@ -219,15 +224,33 @@
             transition: transform 0.3s;
             cursor: pointer;
         }
-        
-        .category-card:hover {
+
+        a.category-card:hover {
             transform: translateY(-5px);
         }
-        
+
         .category-icon {
             font-size: 3rem;
             color: var(--primary);
             margin-bottom: 1rem;
+        }
+
+        /* Categories page grid (categories.html: .card.category-card).
+           Keeps every card the same height in every row regardless of how
+           long its name or description is. Bootstrap's own .h-100 + flex
+           already equalizes cards within a single row, but without a
+           shared floor, a row that happens to contain only short names/
+           descriptions renders shorter overall than a row containing a
+           two-line name like "Programming & Technology". Reserving a
+           consistent minimum for the title (2 lines) and description (a
+           few lines) removes that row-to-row difference. */
+        .card.category-card .card-title {
+            min-height: 3.7rem;
+            overflow-wrap: break-word;
+        }
+
+        .card.category-card .card-text {
+            min-height: 5.7rem;
         }
         
         .back-to-top {
