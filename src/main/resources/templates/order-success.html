@@ -69,18 +69,18 @@
                                             </div>
                                         </td>
                                         <td th:text="${item.quantity}"></td>
-                                        <td th:text="'₹' + ${item.price}"></td>
-                                        <td class="text-end fw-bold" th:text="'₹' + ${item.totalPrice != null ? item.totalPrice : item.price * item.quantity}"></td>
+                                        <td th:text="'₹' + ${#numbers.formatDecimal(item.price, 0, 'COMMA', 0, 'POINT')}"></td>
+                                        <td class="text-end fw-bold" th:text="'₹' + ${#numbers.formatDecimal(item.totalPrice != null ? item.totalPrice : item.price * item.quantity, 0, 'COMMA', 0, 'POINT')}"></td>
                                     </tr>
                                 </tbody>
                                 <tfoot>
                                     <tr th:if="${order.shippingAmount != null and order.shippingAmount > 0}">
                                         <td colspan="3" class="text-end text-muted">Shipping Fee</td>
-                                        <td class="text-end fw-bold" th:text="'₹' + ${order.shippingAmount}"></td>
+                                        <td class="text-end fw-bold" th:text="'₹' + ${#numbers.formatDecimal(order.shippingAmount, 0, 'COMMA', 0, 'POINT')}"></td>
                                     </tr>
                                     <tr>
                                         <td colspan="3" class="text-end fw-bold fs-5">Grand Total</td>
-                                        <td class="text-end fw-bold price fs-4" th:text="'₹' + ${order.finalAmount != null ? order.finalAmount : order.totalAmount}"></td>
+                                        <td class="text-end fw-bold price fs-4" th:text="'₹' + ${#numbers.formatDecimal(order.finalAmount != null ? order.finalAmount : order.totalAmount, 0, 'COMMA', 0, 'POINT')}"></td>
                                     </tr>
                                 </tfoot>
                             </table>

@@ -7,7 +7,6 @@ import com.booknest.entity.User;
 import com.booknest.service.BookService;
 import com.booknest.service.CategoryService;
 import com.booknest.service.UserService;
-import com.booknest.util.CategoryCatalog;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -112,20 +111,14 @@ public class CategoryController {
         return "books";
     }
 
-    /**
-     * Fallback used only if the database has no category rows at all (e.g. the
-     * very first request racing app startup). Built from the same
-     * {@link CategoryCatalog} that seeds the database, so this can never drift
-     * out of sync with - or omit - any of the real categories.
-     */
     private List<Category> getSampleCategories() {
         List<Category> sampleCategories = new ArrayList<>();
-        long id = 1;
-        for (String[] cat : CategoryCatalog.CATEGORIES) {
+        String[] categoryNames = {"Fiction", "Non-Fiction", "Self Help", "Business", "Technology", "Programming", "History", "Romance", "Children", "Science"};
+        for (String name : categoryNames) {
             Category category = new Category();
-            category.setId(id++);
-            category.setName(cat[0]);
-            category.setDescription(cat[1]);
+            category.setId((long) (sampleCategories.size() + 1));
+            category.setName(name);
+            category.setDescription(name + " books for curious readers.");
             sampleCategories.add(category);
         }
         return sampleCategories;

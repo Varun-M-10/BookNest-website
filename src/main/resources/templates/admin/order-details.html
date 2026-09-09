@@ -162,21 +162,21 @@
                                                 </td>
                                                 <td th:text="'₹' + ${item.price}">₹0</td>
                                                 <td class="fw-bold" th:text="${item.quantity}">1</td>
-                                                <td class="text-end fw-bold text-dark" th:text="'₹' + ${item.price * item.quantity}">₹0</td>
+                                                <td class="text-end fw-bold text-dark" th:text="'₹' + ${#numbers.formatDecimal(item.price * item.quantity, 0, 'COMMA', 0, 'POINT')}">₹0</td>
                                             </tr>
                                         </tbody>
                                         <tfoot class="border-top">
                                             <tr>
                                                 <td colspan="3" class="text-end fw-bold">Subtotal</td>
-                                                <td class="text-end" th:text="'₹' + ${order.totalAmount}">₹0</td>
+                                                <td class="text-end" th:text="'₹' + ${#numbers.formatDecimal(order.totalAmount, 0, 'COMMA', 0, 'POINT')}">₹0</td>
                                             </tr>
                                             <tr>
                                                 <td colspan="3" class="text-end fw-bold">Shipping</td>
-                                                <td class="text-end" th:text="'₹' + ${order.shippingAmount}">₹0</td>
+                                                <td class="text-end" th:text="'₹' + ${#numbers.formatDecimal(order.shippingAmount, 0, 'COMMA', 0, 'POINT')}">₹0</td>
                                             </tr>
                                             <tr class="fs-5">
                                                 <td colspan="3" class="text-end fw-bold text-dark">Grand Total</td>
-                                                <td class="text-end fw-bold text-success" th:text="'₹' + ${order.finalAmount}">₹0</td>
+                                                <td class="text-end fw-bold text-success" th:text="'₹' + ${#numbers.formatDecimal(order.finalAmount, 0, 'COMMA', 0, 'POINT')}">₹0</td>
                                             </tr>
                                         </tfoot>
                                     </table>

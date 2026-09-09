@@ -12,48 +12,48 @@ document.addEventListener('DOMContentLoaded', function () {
     const empty = document.getElementById('emptyState');
     const prevButton = document.querySelector('[data-page="previous"]');
     const nextButton = document.querySelector('[data-page="next"]');
-    const pageNumbers = document.getElementById('pageNumbers');
+    const pageNumbers = document.querySelector('.page-numbers');
     let currentPage = 1;
     const pageSize = 12;
 
-    function matchesQuery(card, query) {
-        if (!query) return true;
-        const haystack = [card.dataset.title, card.dataset.author, card.dataset.category, card.dataset.language]
-            .join(' ')
-            .toLowerCase();
-        return haystack.includes(query);
+    function pageWindow(totalPages, activePage) {
+        // Builds a compact, dynamic list of page numbers (with '...' gaps)
+        // instead of hardcoding a fixed set of page buttons.
+        const pages = [];
+        if (totalPages <= 7) {
+            for (let i = 1; i <= totalPages; i++) pages.push(i);
+            return pages;
+        }
+        pages.push(1);
+        const start = Math.max(2, activePage - 1);
+        const end = Math.min(totalPages - 1, activePage + 1);
+        if (start > 2) pages.push('...');
+        for (let i = start; i <= end; i++) pages.push(i);
+        if (end < totalPages - 1) pages.push('...');
+        pages.push(totalPages);
+        return pages;
     }
 
-    function renderPageNumbers(current, totalPages) {
+    function renderPageButtons(totalPages, activePage) {
+        if (!pageNumbers) return;
         pageNumbers.innerHTML = '';
-        if (totalPages <= 1) return;
-
-        const pagesToShow = new Set([1, totalPages]);
-        for (let p = current - 1; p <= current + 1; p++) {
-            if (p >= 1 && p <= totalPages) pagesToShow.add(p);
-        }
-        const sortedPages = Array.from(pagesToShow).sort(function (a, b) { return a - b; });
-
-        let previousPage = 0;
-        sortedPages.forEach(function (pageNumber) {
-            if (previousPage && pageNumber - previousPage > 1) {
-                const ellipsis = document.createElement('span');
-                ellipsis.textContent = '…';
-                ellipsis.setAttribute('aria-hidden', 'true');
-                ellipsis.style.cssText = 'padding:0 .3rem;color:#a59387;';
-                pageNumbers.appendChild(ellipsis);
-            }
+        pageWindow(totalPages, activePage).forEach(function (page) {
             const button = document.createElement('button');
             button.type = 'button';
-            button.textContent = String(pageNumber);
-            button.dataset.page = String(pageNumber);
-            if (pageNumber === current) button.classList.add('active');
-            button.addEventListener('click', function () {
-                currentPage = pageNumber;
-                applyFilters();
-            });
+            if (page === '...') {
+                button.textContent = '…';
+                button.disabled = true;
+                button.setAttribute('aria-hidden', 'true');
+            } else {
+                button.textContent = String(page);
+                button.dataset.page = String(page);
+                if (page === activePage) button.classList.add('active');
+                button.addEventListener('click', function () {
+                    currentPage = page;
+                    applyFilters();
+                });
+            }
             pageNumbers.appendChild(button);
-            previousPage = pageNumber;
         });
     }
 
@@ -62,59 +62,40 @@ document.addEventListener('DOMContentLoaded', function () {
         const maxPrice = Number(price.value);
         const minimumRating = Number(rating.value);
         let visible = cards.filter(function (card) {
-            return matchesQuery(card, query) &&
-                (!category.value || card.dataset.category === category.value) &&
-                (!author.value || card.dataset.author === author.value) &&
-                (!language.value || card.dataset.language === language.value) &&
-                Number(card.dataset.rating) >= minimumRating &&
-                Number(card.dataset.price) <= maxPrice;
+            const matchesQuery = !query || (card.dataset.title + ' ' + card.dataset.author).toLowerCase().includes(query);
+            return matchesQuery && (!category.value || card.dataset.category === category.value) && (!author.value || card.dataset.author === author.value) && (!language.value || card.dataset.language === language.value) && Number(card.dataset.rating) >= minimumRating && Number(card.dataset.price) <= maxPrice;
         });
         visible.sort(function (first, second) {
             if (sort.value === 'price-low') return Number(first.dataset.price) - Number(second.dataset.price);
             if (sort.value === 'price-high') return Number(second.dataset.price) - Number(first.dataset.price);
             if (sort.value === 'rating') return Number(second.dataset.rating) - Number(first.dataset.rating);
             if (sort.value === 'popular') return Number(second.dataset.popular) - Number(first.dataset.popular);
-            if (sort.value === 'newest') return new Date(second.dataset.published) - new Date(first.dataset.published);
             return cards.indexOf(first) - cards.indexOf(second);
         });
-
         const totalPages = Math.max(1, Math.ceil(visible.length / pageSize));
-        currentPage = Math.min(Math.max(1, currentPage), totalPages);
-
+        currentPage = Math.min(currentPage, totalPages);
         cards.forEach(function (card) { card.classList.add('d-none'); });
         const start = (currentPage - 1) * pageSize;
         visible.slice(start, start + pageSize).forEach(function (card) { card.classList.remove('d-none'); });
-
         count.textContent = visible.length;
         empty.classList.toggle('d-none', visible.length > 0);
-
-        prevButton.disabled = currentPage === 1;
-        nextButton.disabled = currentPage >= totalPages;
-        renderPageNumbers(currentPage, totalPages);
+        if (prevButton) prevButton.disabled = currentPage === 1;
+        if (nextButton) nextButton.disabled = currentPage >= totalPages;
+        renderPageButtons(totalPages, currentPage);
+        // Cards revealed by filtering/pagination were hidden (display:none) when AOS
+        // last scanned the page, so AOS never marked them animated - they'd otherwise
+        // stay stuck at their pre-animation opacity/transform and visually overlap the
+        // content below them. Re-scanning after every visibility change fixes that
+        // without altering the animation itself.
+        if (window.AOS) AOS.refresh();
     }
 
-    [search, category, author, language, rating, sort, price].forEach(function (control) {
-        control.addEventListener('input', function () { currentPage = 1; applyFilters(); });
-    });
-    document.querySelectorAll('.sidebar-link').forEach(function (button) {
-        button.addEventListener('click', function () {
-            category.value = button.dataset.category;
-            document.querySelectorAll('.sidebar-link').forEach(function (item) { item.classList.remove('active'); });
-            button.classList.add('active');
-            currentPage = 1;
-            applyFilters();
-        });
-    });
+    [search, category, author, language, rating, sort, price].forEach(function (control) { control.addEventListener('input', function () { currentPage = 1; applyFilters(); }); });
+    document.querySelectorAll('.sidebar-link').forEach(function (button) { button.addEventListener('click', function () { category.value = button.dataset.category; document.querySelectorAll('.sidebar-link').forEach(function (item) { item.classList.remove('active'); }); button.classList.add('active'); currentPage = 1; applyFilters(); }); });
     price.addEventListener('input', function () { priceValue.textContent = '₹' + Number(price.value).toLocaleString('en-IN'); });
-    prevButton.addEventListener('click', function () { currentPage = Math.max(1, currentPage - 1); applyFilters(); });
-    nextButton.addEventListener('click', function () { currentPage = currentPage + 1; applyFilters(); });
-    document.querySelectorAll('.wishlist-btn').forEach(function (button) {
-        button.addEventListener('click', function () {
-            button.classList.toggle('is-saved');
-            button.querySelector('i').classList.toggle('far');
-            button.querySelector('i').classList.toggle('fas');
-        });
-    });
+    if (prevButton) prevButton.addEventListener('click', function () { currentPage = Math.max(1, currentPage - 1); applyFilters(); });
+    if (nextButton) nextButton.addEventListener('click', function () { currentPage = currentPage + 1; applyFilters(); });
+    document.querySelectorAll('.wishlist-btn').forEach(function (button) { button.addEventListener('click', function () { button.classList.toggle('is-saved'); button.querySelector('i').classList.toggle('far'); button.querySelector('i').classList.toggle('fas'); }); });
     if (window.AOS) AOS.refresh();
     applyFilters();
 });

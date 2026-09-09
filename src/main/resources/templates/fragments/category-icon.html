@@ -1,0 +1,12 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<body>
+<!--
+  Shared category -> Font Awesome icon mapping, covering all 28 BookNest
+  categories. Used by categories.html and home.html so the icon logic for a
+  category name lives in exactly one place.
+-->
+<i th:fragment="icon(name)" class="fas fa-2x" style="color: var(--primary);"
+   th:classappend="${(#strings.equalsIgnoreCase(name,'Fiction') ? 'fa-feather-alt' : (#strings.equalsIgnoreCase(name,'Programming &amp; Technology') ? 'fa-laptop-code' : (#strings.equalsIgnoreCase(name,'Entrepreneurship') ? 'fa-rocket' : (#strings.equalsIgnoreCase(name,'Self Development') ? 'fa-brain' : (#strings.equalsIgnoreCase(name,'Romance') ? 'fa-heart' : (#strings.equalsIgnoreCase(name,'Kids') ? 'fa-child' : (#strings.equalsIgnoreCase(name,'History') ? 'fa-landmark' : (#strings.equalsIgnoreCase(name,'Science') ? 'fa-flask' : (#strings.equalsIgnoreCase(name,'Marathi Literature') ? 'fa-scroll' : (#strings.equalsIgnoreCase(name,'Hindi Literature') ? 'fa-scroll' : (#strings.equalsIgnoreCase(name,'Bengali Literature') ? 'fa-scroll' : (#strings.equalsIgnoreCase(name,'Gujarati Literature') ? 'fa-book' : (#strings.equalsIgnoreCase(name,'Tamil Literature') ? 'fa-scroll' : (#strings.equalsIgnoreCase(name,'Telugu Literature') ? 'fa-book' : (#strings.equalsIgnoreCase(name,'Kannada Literature') ? 'fa-scroll' : (#strings.equalsIgnoreCase(name,'Malayalam Literature') ? 'fa-book' : (#strings.equalsIgnoreCase(name,'Punjabi Literature') ? 'fa-scroll' : (#strings.equalsIgnoreCase(name,'Urdu Literature') ? 'fa-pen-nib' : (#strings.equalsIgnoreCase(name,'Spirituality') ? 'fa-om' : (#strings.equalsIgnoreCase(name,'Education &amp; Academics') ? 'fa-graduation-cap' : (#strings.equalsIgnoreCase(name,'Competitive Exams') ? 'fa-pencil-alt' : (#strings.equalsIgnoreCase(name,'Management') ? 'fa-briefcase' : (#strings.equalsIgnoreCase(name,'Biography &amp; Memoir') ? 'fa-user' : (#strings.equalsIgnoreCase(name,'Mystery &amp; Thriller') ? 'fa-search' : (#strings.equalsIgnoreCase(name,'Poetry') ? 'fa-feather' : (#strings.equalsIgnoreCase(name,'Health &amp; Wellness') ? 'fa-heartbeat' : (#strings.equalsIgnoreCase(name,'Finance &amp; Investing') ? 'fa-chart-line' : (#strings.equalsIgnoreCase(name,'Philosophy') ? 'fa-lightbulb' : 'fa-book-open'))))))))))))))))))))))))))))}"></i>
+</body>
+</html>

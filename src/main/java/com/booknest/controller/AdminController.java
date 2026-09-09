@@ -307,7 +307,7 @@ public class AdminController {
         // Top Selling Books (sorted by soldCount)
         List<Book> topSellingBooks = books.stream()
                 .filter(b -> b.getSoldCount() != null && b.getSoldCount() > 0)
-                .sorted(Comparator.comparing(Book::getSoldCount).reversed())
+                .sorted(Comparator.comparing((Book b) -> b.getSoldCount()).reversed())
                 .limit(8)
                 .collect(Collectors.toList());
 

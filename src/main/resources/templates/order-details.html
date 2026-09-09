@@ -59,9 +59,9 @@
                                                 </div>
                                             </div>
                                         </td>
-                                        <td th:text="'₹' + ${item.price}"></td>
+                                        <td th:text="'₹' + ${#numbers.formatDecimal(item.price, 0, 'COMMA', 0, 'POINT')}"></td>
                                         <td th:text="${item.quantity}"></td>
-                                        <td class="text-end fw-bold" th:text="'₹' + ${item.totalPrice != null ? item.totalPrice : item.price * item.quantity}"></td>
+                                        <td class="text-end fw-bold" th:text="'₹' + ${#numbers.formatDecimal(item.totalPrice != null ? item.totalPrice : item.price * item.quantity, 0, 'COMMA', 0, 'POINT')}"></td>
                                     </tr>
                                 </tbody>
                             </table>
@@ -87,17 +87,17 @@
                         <h5 class="card-title mb-4" style="font-family: 'Playfair Display', serif;">Order Summary</h5>
                         <div class="d-flex justify-content-between mb-2">
                             <span class="text-muted">Subtotal</span>
-                            <span th:text="'₹' + ${order.totalAmount}"></span>
+                            <span th:text="'₹' + ${#numbers.formatDecimal(order.totalAmount, 0, 'COMMA', 0, 'POINT')}"></span>
                         </div>
                         <div class="d-flex justify-content-between mb-2">
                             <span class="text-muted">Shipping Fee</span>
-                            <span th:text="${order.shippingAmount != null and order.shippingAmount > 0} ? '₹' + ${order.shippingAmount} : 'FREE'" 
+                            <span th:text="${order.shippingAmount != null and order.shippingAmount > 0} ? '₹' + ${#numbers.formatDecimal(order.shippingAmount, 0, 'COMMA', 0, 'POINT')} : 'FREE'"
                                   th:class="${order.shippingAmount != null and order.shippingAmount > 0} ? '' : 'text-success fw-bold'"></span>
                         </div>
                         <hr>
                         <div class="d-flex justify-content-between fw-bold fs-5">
                             <span>Grand Total</span>
-                            <span class="price" th:text="'₹' + ${order.finalAmount != null ? order.finalAmount : order.totalAmount}"></span>
+                            <span class="price" th:text="'₹' + ${#numbers.formatDecimal(order.finalAmount != null ? order.finalAmount : order.totalAmount, 0, 'COMMA', 0, 'POINT')}"></span>
                         </div>
                     </div>
                 </div>

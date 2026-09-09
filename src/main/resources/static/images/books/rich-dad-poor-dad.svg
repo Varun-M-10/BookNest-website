@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 560" width="400" height="560" role="img" aria-label="Rich Dad Poor Dad book cover">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#92400e"/>
+      <stop offset="100%" stop-color="#f59e0b"/>
+    </linearGradient>
+  </defs>
+  <rect width="400" height="560" fill="url(#bg)"/>
+  <rect x="14" y="14" width="372" height="532" fill="none" stroke="rgba(255,250,244,0.35)" stroke-width="2"/>
+  <rect x="24" y="24" width="352" height="512" fill="none" stroke="rgba(255,250,244,0.2)" stroke-width="1"/>
+  <circle cx="200.0" cy="112.0" r="34" fill="rgba(255,250,244,0.14)"/>
+  <text x="200.0" y="125.0" text-anchor="middle" font-family="Georgia, serif" font-size="34" font-weight="700" fill="#fffaf4">R</text>
+  <text x="200.0" y="168.0" text-anchor="middle" font-family="'Segoe UI', Arial, sans-serif" font-size="12" letter-spacing="3" fill="rgba(255,250,244,0.75)">ENTREPRENEURSHIP</text>
+  <text x="200.0" y="225.2" text-anchor="middle" font-family="Georgia, 'Times New Roman', serif" font-size="30" font-weight="700" fill="#fffaf4">Rich Dad Poor</text>
+    <text x="200.0" y="265.2" text-anchor="middle" font-family="Georgia, 'Times New Roman', serif" font-size="30" font-weight="700" fill="#fffaf4">Dad</text>
+  <text x="200.0" y="331.2" text-anchor="middle" font-family="'Segoe UI', Arial, sans-serif" font-size="16" fill="rgba(255,250,244,0.88)">Robert Kiyosaki</text>
+  <line x1="160.0" y1="353.2" x2="240.0" y2="353.2" stroke="rgba(255,250,244,0.4)" stroke-width="1"/>
+  <text x="200.0" y="526" text-anchor="middle" font-family="'Segoe UI', Arial, sans-serif" font-size="13" letter-spacing="2" fill="rgba(255,250,244,0.6)">BOOKNEST</text>
+</svg>

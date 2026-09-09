@@ -79,6 +79,7 @@ public class CartService {
         return cartRepository.save(cart);
     }
 
+    @SuppressWarnings("null")
     public Cart updateCartItem(User user, Long bookId, Integer quantity) {
         Cart cart = getCartByUser(user);
         CartItem cartItem = cartItemRepository.findByCartIdAndBookId(cart.getId(), bookId)
@@ -102,6 +103,7 @@ public class CartService {
         return cartRepository.save(cart);
     }
 
+    @SuppressWarnings("null")
     public Cart removeFromCart(User user, Long bookId) {
         Cart cart = getCartByUser(user);
         CartItem cartItem = cartItemRepository.findByCartIdAndBookId(cart.getId(), bookId)
@@ -113,6 +115,7 @@ public class CartService {
         return cartRepository.save(cart);
     }
 
+    @SuppressWarnings("null")
     public void clearCart(User user) {
         Cart cart = getCartByUser(user);
         cartItemRepository.deleteAll(cart.getCartItems());
@@ -143,6 +146,8 @@ public class CartService {
 
     public Integer getCartItemCount(User user) {
         Optional<Cart> cart = cartRepository.findByUserId(user.getId());
-        return cart.map(Cart::getTotalItems).orElse(0);
+        @SuppressWarnings("null")
+        Integer count = cart.map(Cart::getTotalItems).orElse(0);
+        return count;
     }
 }

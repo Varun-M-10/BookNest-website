@@ -27,6 +27,7 @@ public class ReviewService {
     private final ReviewRepository reviewRepository;
     private final BookRepository bookRepository;
 
+    @SuppressWarnings("null")
     public Review createReview(User user, ReviewDto reviewDto) {
         if (reviewRepository.findByUserIdAndBookId(user.getId(), reviewDto.getBookId()).isPresent()) {
             throw new RuntimeException("You have already reviewed this book");
@@ -49,6 +50,7 @@ public class ReviewService {
         return savedReview;
     }
 
+    @SuppressWarnings("null")
     public Review updateReview(Long reviewId, ReviewDto reviewDto) {
         Review review = reviewRepository.findById(reviewId)
                 .orElseThrow(() -> new RuntimeException("Review not found"));
@@ -63,6 +65,7 @@ public class ReviewService {
         return savedReview;
     }
 
+    @SuppressWarnings("null")
     public void deleteReview(Long reviewId) {
         Review review = reviewRepository.findById(reviewId)
                 .orElseThrow(() -> new RuntimeException("Review not found"));
@@ -84,6 +87,7 @@ public class ReviewService {
         return reviewRepository.findByUserId(user.getId());
     }
 
+    @SuppressWarnings("null")
     public Review getReviewById(Long id) {
         return reviewRepository.findById(id).orElse(null);
     }
@@ -92,6 +96,7 @@ public class ReviewService {
         return reviewRepository.findPendingReviews();
     }
 
+    @SuppressWarnings("null")
     public Review approveReview(Long reviewId) {
         Review review = reviewRepository.findById(reviewId)
                 .orElseThrow(() -> new RuntimeException("Review not found"));

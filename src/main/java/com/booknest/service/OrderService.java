@@ -84,6 +84,7 @@ public class OrderService {
         return orderRepository.save(savedOrder);
     }
 
+    @SuppressWarnings("null")
     public Order getOrderById(Long id) {
         return orderRepository.findById(id).orElse(null);
     }

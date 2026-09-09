@@ -23,6 +23,7 @@ public class AuthorService {
         return authorRepository.findAll();
     }
 
+    @SuppressWarnings("null")
     public Optional<Author> getAuthorById(Long id) {
         return authorRepository.findById(id);
     }
@@ -39,14 +40,17 @@ public class AuthorService {
         return authorRepository.findByNameContainingIgnoreCase(name);
     }
 
+    @SuppressWarnings("null")
     public Author saveAuthor(Author author) {
         return authorRepository.save(author);
     }
 
+    @SuppressWarnings("null")
     public Author updateAuthor(Author author) {
         return authorRepository.save(author);
     }
 
+    @SuppressWarnings("null")
     public void deleteAuthor(Long id) {
         authorRepository.deleteById(id);
     }

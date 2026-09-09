@@ -42,6 +42,7 @@ public class AuthController {
     }
 
     @PostMapping("/register")
+    @SuppressWarnings("null")
     public String registerUser(@Valid @ModelAttribute("user") UserRegistrationDto registrationDto,
                                BindingResult result,
                                RedirectAttributes redirectAttributes) {
@@ -60,7 +61,8 @@ public class AuthController {
                 "Registration successful! Please login with your credentials");
             return "redirect:/login";
         } catch (RuntimeException e) {
-            result.rejectValue("email", "error.user", e.getMessage());
+            String errorMsg = e.getMessage() != null ? e.getMessage() : "An error occurred";
+            result.rejectValue("email", "error.user", errorMsg);
             return "register";
         }
     }

@@ -148,7 +148,7 @@
                                             <small class="text-muted" th:text="${book.author != null ? book.author.name : 'Unknown Author'}">Author</small>
                                         </td>
                                         <td th:text="${book.category != null ? book.category.name : 'N/A'}">Category</td>
-                                        <td class="fw-bold text-success" th:text="'₹' + ${book.price}">₹0</td>
+                                        <td class="fw-bold text-success" th:text="'₹' + ${#numbers.formatDecimal(book.price, 0, 'COMMA', 0, 'POINT')}">₹0</td>
                                         <td>
                                             <span class="badge rounded-pill" 
                                                   th:classappend="${book.stock <= 5} ? 'bg-danger' : 'bg-success'"

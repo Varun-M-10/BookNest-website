@@ -30,17 +30,13 @@ public class HomeController {
     private final CategoryService categoryService;
     private final UserService userService;
 
-    /**
-     * Curated, ordered subset of the canonical category taxonomy shown on the
-     * homepage "Featured Categories" section. Every name here must match a
-     * real {@link Category#getName()} exactly; any that can't be resolved to
-     * an actual category are simply skipped (never shown as a dead link).
-     */
-    private static final String[] HOME_CATEGORY_NAMES = {
-        "Fiction", "Programming & Technology", "Entrepreneurship", "Self Development",
-        "Romance", "Kids", "Marathi Literature", "Hindi Literature",
-        "Competitive Exams", "Biography & Memoir", "Mystery & Thriller", "Finance & Investing"
-    };
+    // Recommended categories to feature on the homepage, in display order.
+    // Resolved against the real Category records so IDs are never hardcoded.
+    private static final List<String> HOMEPAGE_CATEGORY_NAMES = List.of(
+            "Fiction", "Programming & Technology", "Entrepreneurship", "Self Development",
+            "Romance", "Kids", "Marathi Literature", "Hindi Literature",
+            "Competitive Exams", "Biography & Memoir", "Mystery & Thriller", "Finance & Investing"
+    );
 
     @GetMapping({"/", "/home"})
     public String home(Model model) {
@@ -63,35 +59,25 @@ public class HomeController {
             bestSellers = bestSellers.subList(0, 6);
         }
 
-        // Remove new arrivals section
-        model.addAttribute("featuredBooks", featuredBooks);
-        model.addAttribute("bestSellers", bestSellers);
-        model.addAttribute("categories", categories);
-        model.addAttribute("homeCategories", buildHomeCategories());
-
-        return "home";
-    }
-
-    /**
-     * Resolves {@link #HOME_CATEGORY_NAMES} to their real, database-backed
-     * {@link Category} entities (with books eagerly fetched so the homepage
-     * can show an accurate book count per card) so every homepage category
-     * card links to the actual category id and count - never a hardcoded or
-     * guessed one.
-     */
-    private List<Category> buildHomeCategories() {
-        Map<String, Category> byName = new LinkedHashMap<>();
-        for (Category c : categoryService.getAllCategoriesWithBooks()) {
-            byName.put(c.getName(), c);
+        Map<String, Category> categoryByName = new LinkedHashMap<>();
+        for (Category category : categories) {
+            categoryByName.put(category.getName(), category);
         }
         List<Category> homeCategories = new ArrayList<>();
-        for (String name : HOME_CATEGORY_NAMES) {
-            Category category = byName.get(name);
+        for (String name : HOMEPAGE_CATEGORY_NAMES) {
+            Category category = categoryByName.get(name);
             if (category != null) {
                 homeCategories.add(category);
             }
         }
-        return homeCategories;
+
+        // Remove new arrivals section
+        model.addAttribute("featuredBooks", featuredBooks);
+        model.addAttribute("bestSellers", bestSellers);
+        model.addAttribute("categories", categories);
+        model.addAttribute("homeCategories", homeCategories);
+
+        return "home";
     }
 
     @GetMapping("/about")

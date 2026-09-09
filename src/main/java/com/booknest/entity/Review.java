@@ -31,7 +31,9 @@ public class Review {
     @Column(nullable = false)
     private Boolean approved = false;
 
-    @Column(name = "created_at", nullable = false, updatable = false)
+    // Not marked updatable=false: DataInitializer intentionally back-dates
+    // seeded reviews to realistic historical dates after the initial insert.
+    @Column(name = "created_at", nullable = false)
     private LocalDateTime createdAt;
 
     @Column(name = "updated_at")

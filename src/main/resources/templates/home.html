@@ -52,27 +52,13 @@
             </div>
             
             <div class="row g-4">
-                <div class="col-lg-3 col-md-6 col-12" th:each="category, iterStat : ${homeCategories}" data-aos="fade-up" th:data-aos-delay="${(iterStat.index % 4 + 1) * 100}">
-                    <a th:href="@{/category/{id}(id=${category.id})}" class="d-block text-decoration-none text-reset">
-                        <div class="category-card">
-                            <div class="category-icon" th:switch="${category.name}">
-                                <i th:case="'Fiction'" class="fas fa-feather-alt"></i>
-                                <i th:case="'Programming &amp; Technology'" class="fas fa-laptop-code"></i>
-                                <i th:case="'Entrepreneurship'" class="fas fa-briefcase"></i>
-                                <i th:case="'Self Development'" class="fas fa-brain"></i>
-                                <i th:case="'Romance'" class="fas fa-heart"></i>
-                                <i th:case="'Kids'" class="fas fa-child"></i>
-                                <i th:case="'Marathi Literature'" class="fas fa-language"></i>
-                                <i th:case="'Hindi Literature'" class="fas fa-language"></i>
-                                <i th:case="'Competitive Exams'" class="fas fa-graduation-cap"></i>
-                                <i th:case="'Biography &amp; Memoir'" class="fas fa-user"></i>
-                                <i th:case="'Mystery &amp; Thriller'" class="fas fa-magnifying-glass"></i>
-                                <i th:case="'Finance &amp; Investing'" class="fas fa-sack-dollar"></i>
-                                <i th:case="*" class="fas fa-book-open"></i>
-                            </div>
-                            <h5 th:text="${category.name}">Category</h5>
-                            <p class="text-muted small" th:text="${(category.books != null ? category.books.size() : 0)} + ' Books'">0 Books</p>
+                <div class="col-lg-3 col-md-6 col-12" th:each="category, iterStat : ${homeCategories}" data-aos="fade-up" th:data-aos-delay="${100 + (iterStat.index % 4) * 100}">
+                    <a th:href="@{/category/{id}(id=${category.id})}" class="category-card d-block text-decoration-none text-reset">
+                        <div class="category-icon">
+                            <i th:replace="~{fragments/category-icon :: icon(category.name)}"></i>
                         </div>
+                        <h5 th:text="${category.name}">Category</h5>
+                        <p class="text-muted small" th:text="${category.description}">Category description</p>
                     </a>
                 </div>
             </div>
@@ -106,9 +92,9 @@
                             <p class="card-text text-muted small mb-2" th:text="${book.author.name}"></p>
                             <div class="d-flex justify-content-between align-items-center">
                                 <div>
-                                    <span class="price" th:text="'₹' + ${book.discountedPrice}"></span>
-                                    <span class="original-price ms-2" th:if="${book.discount > 0}" 
-                                          th:text="'₹' + ${book.price}"></span>
+                                    <span class="price" th:text="'₹' + ${book.formattedDiscountedPrice}"></span>
+                                    <span class="original-price ms-2" th:if="${book.discount > 0}"
+                                          th:text="'₹' + ${book.formattedPrice}"></span>
                                 </div>
                                 <div class="rating">
                                     <i class="fas fa-star"></i>
@@ -154,9 +140,9 @@
                                 <p class="card-text text-muted small mb-2" th:text="${book.author.name}"></p>
                                 <div class="d-flex justify-content-between align-items-center">
                                     <div>
-                                        <span class="price" th:text="'₹' + ${book.discountedPrice}"></span>
-                                        <span class="original-price ms-2" th:if="${book.discount > 0}" 
-                                              th:text="'₹' + ${book.price}"></span>
+                                        <span class="price" th:text="'₹' + ${book.formattedDiscountedPrice}"></span>
+                                        <span class="original-price ms-2" th:if="${book.discount > 0}"
+                                              th:text="'₹' + ${book.formattedPrice}"></span>
                                     </div>
                                     <div class="rating">
                                         <i class="fas fa-star"></i>

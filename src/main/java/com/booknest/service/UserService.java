@@ -73,6 +73,7 @@ public class UserService {
         return null;
     }
 
+    @SuppressWarnings("null")
     public User getUserById(Long id) {
         return userRepository.findById(id).orElse(null);
     }
@@ -81,6 +82,7 @@ public class UserService {
         return userRepository.findByEmail(email).orElse(null);
     }
 
+    @SuppressWarnings("null")
     public User updateUser(User user) {
         return userRepository.save(user);
     }

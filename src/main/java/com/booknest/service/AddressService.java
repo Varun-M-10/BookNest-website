@@ -24,6 +24,7 @@ public class AddressService {
         return addressRepository.findByUserId(user.getId());
     }
 
+    @SuppressWarnings("null")
     public Optional<Address> getAddressById(Long id) {
         return addressRepository.findById(id);
     }
@@ -36,8 +37,10 @@ public class AddressService {
         address.setUser(user);
 
         if (address.getDefaultAddress()) {
-            addressRepository.findByUserId(user.getId()).stream()
-                    .filter(Address::getDefaultAddress)
+            @SuppressWarnings("null")
+            List<Address> userAddresses = addressRepository.findByUserId(user.getId());
+            userAddresses.stream()
+                    .filter(addr -> addr.getDefaultAddress() != null && addr.getDefaultAddress())
                     .forEach(existingDefault -> {
                         existingDefault.setDefaultAddress(false);
                         addressRepository.save(existingDefault);
@@ -47,14 +50,17 @@ public class AddressService {
         return addressRepository.save(address);
     }
 
+    @SuppressWarnings("null")
     public Address updateAddress(Address address) {
         return addressRepository.save(address);
     }
 
+    @SuppressWarnings("null")
     public void deleteAddress(Long id) {
         addressRepository.deleteById(id);
     }
 
+    @SuppressWarnings("null")
     public void setDefaultAddress(User user, Long addressId) {
         addressRepository.findByUserId(user.getId()).forEach(addr -> {
             addr.setDefaultAddress(false);

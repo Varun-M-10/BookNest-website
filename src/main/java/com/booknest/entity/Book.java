@@ -8,8 +8,11 @@ import lombok.NoArgsConstructor;
 import org.hibernate.annotations.SQLDelete;
 
 import java.math.BigDecimal;
+import java.math.RoundingMode;
+import java.text.NumberFormat;
 import java.time.LocalDateTime;
 import java.util.HashSet;
+import java.util.Locale;
 import java.util.Set;
 
 /**
@@ -56,10 +59,10 @@ public class Book {
     private Integer stock;
 
     @Column(nullable = false)
-    private BigDecimal rating;
+    private BigDecimal rating = BigDecimal.ZERO;
 
     @Column(nullable = false)
-    private Integer ratingCount;
+    private Integer ratingCount = 0;
 
     @Column(nullable = false)
     private String imageUrl;
@@ -124,10 +127,16 @@ public class Book {
 
     @Transient
     public BigDecimal getDiscountedPrice() {
+        BigDecimal result = price;
         if (discount != null && discount.compareTo(BigDecimal.ZERO) > 0) {
-            return price.subtract(price.multiply(discount.divide(BigDecimal.valueOf(100))));
+            BigDecimal discountAmount = price.multiply(discount)
+                    .divide(BigDecimal.valueOf(100), 4, RoundingMode.HALF_UP);
+            result = price.subtract(discountAmount);
         }
-        return price;
+        // Money is always 2 decimal places; the intermediate discount math above
+        // can otherwise leave a larger scale (e.g. 296.6500) that renders with
+        // stray trailing zeros wherever the value is displayed or serialized.
+        return result.setScale(2, RoundingMode.HALF_UP);
     }
 
     @Transient
@@ -138,5 +147,35 @@ public class Book {
     @Transient
     public Boolean isInStock() {
         return stock != null && stock > 0;
+    }
+
+    /**
+     * Display-formatted list price, e.g. "1,299" or "799.50". Whole rupee
+     * amounts are shown with no decimals; amounts with paise show exactly two.
+     * Formatting only — the underlying {@link #price} stays a numeric BigDecimal.
+     */
+    @Transient
+    public String getFormattedPrice() {
+        return formatMoney(price);
+    }
+
+    /** Display-formatted {@link #getDiscountedPrice()}; see {@link #getFormattedPrice()}. */
+    @Transient
+    public String getFormattedDiscountedPrice() {
+        return formatMoney(getDiscountedPrice());
+    }
+
+    private static String formatMoney(BigDecimal amount) {
+        if (amount == null) {
+            return "0";
+        }
+        BigDecimal normalized = amount.setScale(2, RoundingMode.HALF_UP);
+        boolean hasPaise = normalized.stripTrailingZeros().scale() > 0;
+
+        NumberFormat format = NumberFormat.getNumberInstance(Locale.US);
+        format.setGroupingUsed(true);
+        format.setMinimumFractionDigits(hasPaise ? 2 : 0);
+        format.setMaximumFractionDigits(2);
+        return format.format(normalized);
     }
 }

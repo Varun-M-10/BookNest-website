@@ -48,6 +48,7 @@ public class WishlistService {
         return wishlistRepository.existsByUserIdAndBookId(user.getId(), bookId);
     }
 
+    @SuppressWarnings("null")
     public void clearWishlist(User user) {
         List<Wishlist> wishlistItems = wishlistRepository.findByUserId(user.getId());
         wishlistRepository.deleteAll(wishlistItems);

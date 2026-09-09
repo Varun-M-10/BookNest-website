@@ -2,7 +2,6 @@ package com.booknest.util;
 
 import org.springframework.web.multipart.MultipartFile;
 
-import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -17,7 +16,11 @@ public class FileUploadUtil {
             return null;
         }
 
-        String fileName = UUID.randomUUID().toString() + "_" + multipartFile.getOriginalFilename().replaceAll("[^a-zA-Z0-9.-]", "_");
+        String originalFilename = multipartFile.getOriginalFilename();
+        if (originalFilename == null || originalFilename.isEmpty()) {
+            originalFilename = "file";
+        }
+        String fileName = UUID.randomUUID().toString() + "_" + originalFilename.replaceAll("[^a-zA-Z0-9.-]", "_");
         
         // Base paths for development runtime and source directory
         String srcPathStr = "src/main/resources/static/uploads/" + uploadSubDir;

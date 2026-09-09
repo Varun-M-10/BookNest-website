@@ -27,6 +27,7 @@ public class CategoryService {
         return categoryRepository.findAllActiveWithBooks();
     }
 
+    @SuppressWarnings("null")
     public Optional<Category> getCategoryById(Long id) {
         return categoryRepository.findById(id);
     }
@@ -39,14 +40,17 @@ public class CategoryService {
         return categoryRepository.findByName(name);
     }
 
+    @SuppressWarnings("null")
     public Category saveCategory(Category category) {
         return categoryRepository.save(category);
     }
 
+    @SuppressWarnings("null")
     public Category updateCategory(Category category) {
         return categoryRepository.save(category);
     }
 
+    @SuppressWarnings("null")
     public void deleteCategory(Long id) {
         categoryRepository.deleteById(id);
     }

@@ -30,6 +30,7 @@ public class BookService {
         return bookRepository.searchBooks(keyword, pageable);
     }
 
+    @SuppressWarnings("null")
     public Optional<Book> getBookById(Long id) {
         return bookRepository.findById(id);
     }
@@ -70,18 +71,22 @@ public class BookService {
         return bookRepository.findInStockBooks();
     }
 
+    @SuppressWarnings("null")
     public Book saveBook(Book book) {
         return bookRepository.save(book);
     }
 
+    @SuppressWarnings("null")
     public Book updateBook(Book book) {
         return bookRepository.save(book);
     }
 
+    @SuppressWarnings("null")
     public void deleteBook(Long id) {
         bookRepository.deleteById(id);
     }
 
+    @SuppressWarnings("null")
     public void incrementViewCount(Long bookId) {
         bookRepository.findById(bookId).ifPresent(book -> {
             book.setViewCount(book.getViewCount() + 1);
@@ -89,6 +94,7 @@ public class BookService {
         });
     }
 
+    @SuppressWarnings("null")
     public void incrementSoldCount(Long bookId, Integer quantity) {
         bookRepository.findById(bookId).ifPresent(book -> {
             book.setSoldCount(book.getSoldCount() + quantity);
