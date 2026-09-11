@@ -5,6 +5,8 @@ import com.booknest.repository.*;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -26,11 +28,32 @@ import java.util.*;
  * seeding is skipped so restarts never insert duplicates. Otherwise the old
  * catalog data is cleared first and the full catalog is reloaded from JSON,
  * so a stale database never lingers alongside the new taxonomy.
+ * <p>
+ * Separately, {@link #reconcileBookCovers} always runs, even when the block
+ * above decides seeding is up to date. A cover-image edit in catalog.json
+ * (the common case - swapping a generated placeholder for a real, verified
+ * cover URL) is not a taxonomy or count change, so the skip check above
+ * would otherwise mean the edit never reaches an already-seeded database,
+ * including production. This deliberately does NOT do the broader
+ * "reconcile every field, retire missing titles" upsert a prior version of
+ * this class attempted: that version also made {@code isbn} nullable and
+ * ran a runtime {@code ALTER TABLE} to relax the column's existing NOT NULL
+ * constraint on databases created before this class existed - which
+ * silently failed against a production database whose user lacks DDL
+ * privileges, so the very next save with a null isbn crashed the whole
+ * CommandLineRunner and took app startup down with it. Every book in
+ * catalog.json already carries a non-null, unique isbn, so none of that is
+ * needed here: this method only ever writes imageUrl, a column that has
+ * carried a value since the table was first created, to an existing row
+ * matched by title - no schema change, and each book is isolated in its
+ * own try/catch so one unexpected row can never abort the rest or crash
+ * startup.
  */
 @Component
 @RequiredArgsConstructor
 public class DataInitializer implements CommandLineRunner {
 
+    private static final Logger log = LoggerFactory.getLogger(DataInitializer.class);
     private static final String CATALOG_RESOURCE = "data/catalog.json";
     private static final int MIN_EXPECTED_BOOKS = 140;
     private static final String SEED_READER_PASSWORD = "Reader@123";
@@ -50,7 +73,9 @@ public class DataInitializer implements CommandLineRunner {
     public void run(String... args) throws Exception {
         initializeRoles();
         initializeAdminUser();
-        seedCatalog();
+        JsonNode catalog = loadCatalog();
+        seedCatalog(catalog);
+        reconcileBookCovers(catalog);
     }
 
     private void initializeRoles() {
@@ -92,9 +117,7 @@ public class DataInitializer implements CommandLineRunner {
         }
     }
 
-    private void seedCatalog() throws Exception {
-        JsonNode root = loadCatalog();
-
+    private void seedCatalog(JsonNode root) {
         Set<String> expectedNames = new LinkedHashSet<>();
         root.get("categories").forEach(c -> expectedNames.add(c.get("name").asText()));
 
@@ -176,7 +199,7 @@ public class DataInitializer implements CommandLineRunner {
             book.setStock(b.get("stock").asInt());
             book.setRating(BigDecimal.valueOf(b.get("rating").asDouble()));
             book.setRatingCount(b.get("ratingCount").asInt());
-            book.setImageUrl("/images/books/" + b.get("image").asText());
+            book.setImageUrl(resolveImageUrl(b.get("image").asText()));
             book.setFeatured(b.get("featured").asBoolean());
             book.setBestSeller(b.get("bestSeller").asBoolean());
             book.setNewArrival(rnd.nextDouble() < 0.12);
@@ -211,6 +234,62 @@ public class DataInitializer implements CommandLineRunner {
 
         System.out.println("✓ Catalog seeded: " + categoryByName.size() + " categories, " + authorByName.size()
                 + " authors, " + bookCount + " books, " + reviewers.size() + " reviewers, " + reviewCount + " reviews");
+    }
+
+    /**
+     * Updates {@code imageUrl} on existing book rows, matched by title, to
+     * whatever catalog.json currently declares - the one field this method
+     * touches, and the only column it needs to touch for a cover-image
+     * update to reach an already-seeded database (production included) on
+     * the next restart. See the class-level Javadoc for why this exists as
+     * a narrow always-runs pass rather than folded into the broader
+     * insert-only {@link #seedCatalog}, and why it never touches isbn or
+     * any schema.
+     * <p>
+     * Each row is saved in its own try/catch: a single unexpected failure
+     * (a stale in-memory reference, a constraint this method didn't
+     * anticipate) is logged and skipped rather than allowed to abort the
+     * remaining books - or, worse, the rest of {@link #run}.
+     */
+    private void reconcileBookCovers(JsonNode root) {
+        Map<String, String> imageByTitle = new HashMap<>();
+        for (JsonNode b : root.get("books")) {
+            imageByTitle.put(b.get("title").asText(), resolveImageUrl(b.get("image").asText()));
+        }
+
+        int updated = 0;
+        int failed = 0;
+        for (Book book : bookRepository.findAllActive()) {
+            String expectedUrl = imageByTitle.get(book.getTitle());
+            if (expectedUrl == null || expectedUrl.equals(book.getImageUrl())) {
+                continue;
+            }
+            try {
+                book.setImageUrl(expectedUrl);
+                bookRepository.save(book);
+                updated++;
+            } catch (Exception e) {
+                failed++;
+                log.warn("⚠ Could not update cover for \"{}\": {}", book.getTitle(), e.getMessage());
+            }
+        }
+
+        if (updated > 0 || failed > 0) {
+            System.out.println("✓ Cover reconciliation: " + updated + " updated, " + failed + " failed"
+                    + " (of " + imageByTitle.size() + " catalog entries)");
+        }
+    }
+
+    /**
+     * catalog.json's "image" field is either a real cover's absolute URL
+     * (e.g. an Open Library or Wikimedia cover link) or, for the titles no
+     * reliable source had a verifiable real cover for, a filename served
+     * from the bundled {@code /images/books/} static resources.
+     */
+    private static String resolveImageUrl(String image) {
+        return image.startsWith("http://") || image.startsWith("https://")
+                ? image
+                : "/images/books/" + image;
     }
 
     private JsonNode loadCatalog() throws Exception {

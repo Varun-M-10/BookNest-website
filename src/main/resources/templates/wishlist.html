@@ -37,7 +37,8 @@
             <div class="col-lg-3 col-md-6 col-12" th:each="item : ${wishlist}" data-aos="fade-up">
                 <div class="card h-100">
                     <div class="position-relative">
-                        <img th:src="${item.book.imageUrl}" class="card-img-top book-card-img" alt="Book Cover">
+                        <img th:src="${item.book.imageUrl}" class="card-img-top book-card-img" th:alt="${item.book.title + ' book cover'}"
+                             onerror="this.onerror=null;this.src='/images/books/_cover-unavailable.svg'">
                         <div class="position-absolute top-0 end-0 p-3">
                             <form th:action="@{/wishlist/remove}" method="post">
                                 <input type="hidden" name="bookId" th:value="${item.book.id}">

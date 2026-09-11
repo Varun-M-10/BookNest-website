@@ -941,7 +941,7 @@
       "ratingCount": 492,
       "featured": true,
       "bestSeller": false,
-      "image": "1984.svg",
+      "image": "https://upload.wikimedia.org/wikipedia/commons/5/51/1984_first_edition_cover.jpg",
       "reviews": [
         {
           "reviewerIndex": 6,
@@ -980,7 +980,7 @@
       "ratingCount": 461,
       "featured": false,
       "bestSeller": false,
-      "image": "to-kill-a-mockingbird.svg",
+      "image": "https://covers.openlibrary.org/b/id/14351077-L.jpg",
       "reviews": [
         {
           "reviewerIndex": 19,
@@ -1019,7 +1019,7 @@
       "ratingCount": 175,
       "featured": false,
       "bestSeller": false,
-      "image": "the-alchemist.svg",
+      "image": "https://covers.openlibrary.org/b/id/11556106-L.jpg",
       "reviews": [
         {
           "reviewerIndex": 1,
@@ -1058,7 +1058,7 @@
       "ratingCount": 509,
       "featured": false,
       "bestSeller": false,
-      "image": "the-kite-runner.svg",
+      "image": "https://covers.openlibrary.org/b/id/14846827-L.jpg",
       "reviews": [
         {
           "reviewerIndex": 14,
@@ -1097,7 +1097,7 @@
       "ratingCount": 107,
       "featured": false,
       "bestSeller": false,
-      "image": "pride-and-prejudice.svg",
+      "image": "https://covers.openlibrary.org/b/id/14348537-L.jpg",
       "reviews": [
         {
           "reviewerIndex": 2,
@@ -1136,7 +1136,7 @@
       "ratingCount": 411,
       "featured": false,
       "bestSeller": true,
-      "image": "the-great-gatsby.svg",
+      "image": "https://covers.openlibrary.org/b/id/14972791-L.jpg",
       "reviews": [
         {
           "reviewerIndex": 11,
@@ -1175,7 +1175,7 @@
       "ratingCount": 375,
       "featured": false,
       "bestSeller": false,
-      "image": "life-of-pi.svg",
+      "image": "https://covers.openlibrary.org/b/id/12840573-L.jpg",
       "reviews": [
         {
           "reviewerIndex": 4,
@@ -1214,7 +1214,7 @@
       "ratingCount": 275,
       "featured": false,
       "bestSeller": true,
-      "image": "the-book-thief.svg",
+      "image": "https://covers.openlibrary.org/b/id/8153054-L.jpg",
       "reviews": [
         {
           "reviewerIndex": 14,
@@ -1253,7 +1253,7 @@
       "ratingCount": 722,
       "featured": false,
       "bestSeller": true,
-      "image": "clean-code.svg",
+      "image": "https://covers.openlibrary.org/b/id/8065615-L.jpg",
       "reviews": [
         {
           "reviewerIndex": 21,
@@ -1292,7 +1292,7 @@
       "ratingCount": 928,
       "featured": false,
       "bestSeller": false,
-      "image": "the-pragmatic-programmer.svg",
+      "image": "https://covers.openlibrary.org/b/id/10143650-L.jpg",
       "reviews": [
         {
           "reviewerIndex": 2,
@@ -1331,7 +1331,7 @@
       "ratingCount": 492,
       "featured": false,
       "bestSeller": false,
-      "image": "effective-java.svg",
+      "image": "https://covers.openlibrary.org/b/id/1176573-L.jpg",
       "reviews": [
         {
           "reviewerIndex": 20,
@@ -1370,7 +1370,7 @@
       "ratingCount": 847,
       "featured": false,
       "bestSeller": false,
-      "image": "design-patterns.svg",
+      "image": "https://covers.openlibrary.org/b/id/6601119-L.jpg",
       "reviews": [
         {
           "reviewerIndex": 14,
@@ -1409,7 +1409,7 @@
       "ratingCount": 307,
       "featured": false,
       "bestSeller": false,
-      "image": "introduction-to-algorithms.svg",
+      "image": "https://covers.openlibrary.org/b/id/2341462-L.jpg",
       "reviews": [
         {
           "reviewerIndex": 14,
@@ -1448,7 +1448,7 @@
       "ratingCount": 931,
       "featured": false,
       "bestSeller": false,
-      "image": "you-don-t-know-js-yet.svg",
+      "image": "https://covers.openlibrary.org/b/id/12539693-L.jpg",
       "reviews": [
         {
           "reviewerIndex": 10,
@@ -1487,7 +1487,7 @@
       "ratingCount": 677,
       "featured": false,
       "bestSeller": false,
-      "image": "head-first-design-patterns.svg",
+      "image": "https://covers.openlibrary.org/b/id/388950-L.jpg",
       "reviews": [
         {
           "reviewerIndex": 22,
@@ -1526,7 +1526,7 @@
       "ratingCount": 890,
       "featured": false,
       "bestSeller": false,
-      "image": "cracking-the-coding-interview.svg",
+      "image": "https://covers.openlibrary.org/b/id/7276811-L.jpg",
       "reviews": [
         {
           "reviewerIndex": 3,
@@ -1565,7 +1565,7 @@
       "ratingCount": 720,
       "featured": false,
       "bestSeller": false,
-      "image": "zero-to-one.svg",
+      "image": "https://covers.openlibrary.org/b/id/9002334-L.jpg",
       "reviews": [
         {
           "reviewerIndex": 16,
@@ -1604,7 +1604,7 @@
       "ratingCount": 323,
       "featured": false,
       "bestSeller": false,
-      "image": "the-lean-startup.svg",
+      "image": "https://covers.openlibrary.org/b/id/7104760-L.jpg",
       "reviews": [
         {
           "reviewerIndex": 15,
@@ -1643,7 +1643,7 @@
       "ratingCount": 369,
       "featured": true,
       "bestSeller": false,
-      "image": "rich-dad-poor-dad.svg",
+      "image": "https://covers.openlibrary.org/b/id/8315603-L.jpg",
       "reviews": [
         {
           "reviewerIndex": 13,
@@ -1682,7 +1682,7 @@
       "ratingCount": 597,
       "featured": false,
       "bestSeller": false,
-      "image": "the-100-startup.svg",
+      "image": "https://covers.openlibrary.org/b/id/7257004-L.jpg",
       "reviews": [
         {
           "reviewerIndex": 9,
@@ -1721,7 +1721,7 @@
       "ratingCount": 228,
       "featured": false,
       "bestSeller": false,
-      "image": "shoe-dog.svg",
+      "image": "https://covers.openlibrary.org/b/id/8858487-L.jpg",
       "reviews": [
         {
           "reviewerIndex": 9,
@@ -1760,7 +1760,7 @@
       "ratingCount": 485,
       "featured": false,
       "bestSeller": false,
-      "image": "start-with-why.svg",
+      "image": "https://covers.openlibrary.org/b/id/6395237-L.jpg",
       "reviews": [
         {
           "reviewerIndex": 5,
@@ -1799,7 +1799,7 @@
       "ratingCount": 721,
       "featured": true,
       "bestSeller": false,
-      "image": "the-hard-thing-about-hard-things.svg",
+      "image": "https://covers.openlibrary.org/b/id/7279515-L.jpg",
       "reviews": [
         {
           "reviewerIndex": 1,
@@ -1838,7 +1838,7 @@
       "ratingCount": 895,
       "featured": false,
       "bestSeller": false,
-      "image": "atomic-habits.svg",
+      "image": "https://covers.openlibrary.org/b/id/12539702-L.jpg",
       "reviews": [
         {
           "reviewerIndex": 8,
@@ -1877,7 +1877,7 @@
       "ratingCount": 570,
       "featured": false,
       "bestSeller": false,
-      "image": "the-7-habits-of-highly-effective-people.svg",
+      "image": "https://covers.openlibrary.org/b/id/10079937-L.jpg",
       "reviews": [
         {
           "reviewerIndex": 3,
@@ -1916,7 +1916,7 @@
       "ratingCount": 300,
       "featured": false,
       "bestSeller": false,
-      "image": "think-like-a-monk.svg",
+      "image": "https://covers.openlibrary.org/b/id/10355397-L.jpg",
       "reviews": [
         {
           "reviewerIndex": 9,
@@ -1955,7 +1955,7 @@
       "ratingCount": 885,
       "featured": false,
       "bestSeller": false,
-      "image": "deep-work.svg",
+      "image": "https://covers.openlibrary.org/b/id/7988607-L.jpg",
       "reviews": [
         {
           "reviewerIndex": 16,
@@ -1994,7 +1994,7 @@
       "ratingCount": 863,
       "featured": false,
       "bestSeller": false,
-      "image": "the-subtle-art-of-not-giving-a-f-ck.svg",
+      "image": "https://covers.openlibrary.org/b/id/8231990-L.jpg",
       "reviews": [
         {
           "reviewerIndex": 16,
@@ -2033,7 +2033,7 @@
       "ratingCount": 604,
       "featured": false,
       "bestSeller": true,
-      "image": "ikigai.svg",
+      "image": "https://covers.openlibrary.org/b/olid/OL26927371M-L.jpg",
       "reviews": [
         {
           "reviewerIndex": 20,
@@ -2072,7 +2072,7 @@
       "ratingCount": 923,
       "featured": false,
       "bestSeller": false,
-      "image": "man-s-search-for-meaning.svg",
+      "image": "https://upload.wikimedia.org/wikipedia/en/c/cf/Trotzdem_Ja_zum_Leben_sagen_%28Viktor_Frankl_novel%29_cover.jpg",
       "reviews": [
         {
           "reviewerIndex": 3,
@@ -2111,7 +2111,7 @@
       "ratingCount": 508,
       "featured": false,
       "bestSeller": false,
-      "image": "me-before-you.svg",
+      "image": "https://covers.openlibrary.org/b/id/14419339-L.jpg",
       "reviews": [
         {
           "reviewerIndex": 21,
@@ -2150,7 +2150,7 @@
       "ratingCount": 426,
       "featured": false,
       "bestSeller": false,
-      "image": "the-notebook.svg",
+      "image": "https://upload.wikimedia.org/wikipedia/en/d/d9/The_Notebook_Cover.jpg",
       "reviews": [
         {
           "reviewerIndex": 10,
@@ -2189,7 +2189,7 @@
       "ratingCount": 779,
       "featured": true,
       "bestSeller": false,
-      "image": "the-fault-in-our-stars.svg",
+      "image": "https://covers.openlibrary.org/b/id/7418786-L.jpg",
       "reviews": [
         {
           "reviewerIndex": 12,
@@ -2228,7 +2228,7 @@
       "ratingCount": 718,
       "featured": true,
       "bestSeller": false,
-      "image": "sense-and-sensibility.svg",
+      "image": "https://covers.openlibrary.org/b/id/9278292-L.jpg",
       "reviews": [
         {
           "reviewerIndex": 5,
@@ -2267,7 +2267,7 @@
       "ratingCount": 434,
       "featured": false,
       "bestSeller": false,
-      "image": "norwegian-wood.svg",
+      "image": "https://covers.openlibrary.org/b/id/14853522-L.jpg",
       "reviews": [
         {
           "reviewerIndex": 5,
@@ -2306,7 +2306,7 @@
       "ratingCount": 572,
       "featured": false,
       "bestSeller": false,
-      "image": "love-in-the-time-of-cholera.svg",
+      "image": "https://upload.wikimedia.org/wikipedia/en/d/de/LoveInTheTimeOfCholera.jpg",
       "reviews": [
         {
           "reviewerIndex": 9,
@@ -2345,7 +2345,7 @@
       "ratingCount": 189,
       "featured": true,
       "bestSeller": false,
-      "image": "it-ends-with-us.svg",
+      "image": "https://upload.wikimedia.org/wikipedia/en/e/e4/It_Ends_with_Us_%28Colleen_Hoover%29.png",
       "reviews": [
         {
           "reviewerIndex": 8,
@@ -2384,7 +2384,7 @@
       "ratingCount": 405,
       "featured": false,
       "bestSeller": false,
-      "image": "harry-potter-and-the-sorcerer-s-stone.svg",
+      "image": "https://upload.wikimedia.org/wikipedia/en/6/6b/Harry_Potter_and_the_Philosopher%27s_Stone_Book_Cover.jpg",
       "reviews": [
         {
           "reviewerIndex": 0,
@@ -2423,7 +2423,7 @@
       "ratingCount": 514,
       "featured": false,
       "bestSeller": false,
-      "image": "the-hobbit.svg",
+      "image": "https://covers.openlibrary.org/b/id/14627509-L.jpg",
       "reviews": [
         {
           "reviewerIndex": 9,
@@ -2462,7 +2462,7 @@
       "ratingCount": 861,
       "featured": false,
       "bestSeller": true,
-      "image": "charlotte-s-web.svg",
+      "image": "https://covers.openlibrary.org/b/id/4792394-L.jpg",
       "reviews": [
         {
           "reviewerIndex": 1,
@@ -2501,7 +2501,7 @@
       "ratingCount": 898,
       "featured": true,
       "bestSeller": false,
-      "image": "matilda.svg",
+      "image": "https://covers.openlibrary.org/b/id/12889769-L.jpg",
       "reviews": [
         {
           "reviewerIndex": 19,
@@ -2540,7 +2540,7 @@
       "ratingCount": 256,
       "featured": false,
       "bestSeller": false,
-      "image": "the-gruffalo.svg",
+      "image": "https://covers.openlibrary.org/b/id/8561698-L.jpg",
       "reviews": [
         {
           "reviewerIndex": 6,
@@ -2579,7 +2579,7 @@
       "ratingCount": 345,
       "featured": false,
       "bestSeller": false,
-      "image": "winnie-the-pooh.svg",
+      "image": "https://covers.openlibrary.org/b/id/8739543-L.jpg",
       "reviews": [
         {
           "reviewerIndex": 5,
@@ -2618,7 +2618,7 @@
       "ratingCount": 374,
       "featured": false,
       "bestSeller": false,
-      "image": "panchatantra-tales.svg",
+      "image": "https://upload.wikimedia.org/wikipedia/commons/c/ce/Panchatantra_page.jpg",
       "reviews": [
         {
           "reviewerIndex": 14,
@@ -2657,7 +2657,7 @@
       "ratingCount": 84,
       "featured": false,
       "bestSeller": false,
-      "image": "sapiens-a-brief-history-of-humankind.svg",
+      "image": "https://upload.wikimedia.org/wikipedia/commons/6/6d/Sapiens-_A_Brief_History_of_Humankind.png",
       "reviews": [
         {
           "reviewerIndex": 15,
@@ -2696,7 +2696,7 @@
       "ratingCount": 378,
       "featured": false,
       "bestSeller": false,
-      "image": "guns-germs-and-steel.svg",
+      "image": "https://covers.openlibrary.org/b/id/7884018-L.jpg",
       "reviews": [
         {
           "reviewerIndex": 16,
@@ -2735,7 +2735,7 @@
       "ratingCount": 237,
       "featured": true,
       "bestSeller": false,
-      "image": "the-discovery-of-india.svg",
+      "image": "https://covers.openlibrary.org/b/id/128122-L.jpg",
       "reviews": [
         {
           "reviewerIndex": 5,
@@ -2774,7 +2774,7 @@
       "ratingCount": 417,
       "featured": false,
       "bestSeller": true,
-      "image": "india-after-gandhi.svg",
+      "image": "https://covers.openlibrary.org/b/id/6821235-L.jpg",
       "reviews": [
         {
           "reviewerIndex": 17,
@@ -2813,7 +2813,7 @@
       "ratingCount": 246,
       "featured": false,
       "bestSeller": true,
-      "image": "a-people-s-history-of-the-united-states.svg",
+      "image": "https://covers.openlibrary.org/b/id/10592817-L.jpg",
       "reviews": [
         {
           "reviewerIndex": 13,
@@ -2852,7 +2852,7 @@
       "ratingCount": 228,
       "featured": true,
       "bestSeller": true,
-      "image": "the-wonder-that-was-india.svg",
+      "image": "https://covers.openlibrary.org/b/id/9299587-L.jpg",
       "reviews": [
         {
           "reviewerIndex": 6,
@@ -2891,7 +2891,7 @@
       "ratingCount": 220,
       "featured": false,
       "bestSeller": true,
-      "image": "a-brief-history-of-time.svg",
+      "image": "https://upload.wikimedia.org/wikipedia/en/a/a3/BriefHistoryTime.jpg",
       "reviews": [
         {
           "reviewerIndex": 11,
@@ -2930,7 +2930,7 @@
       "ratingCount": 933,
       "featured": false,
       "bestSeller": true,
-      "image": "cosmos.svg",
+      "image": "https://covers.openlibrary.org/b/id/8283901-L.jpg",
       "reviews": [
         {
           "reviewerIndex": 22,
@@ -2969,7 +2969,7 @@
       "ratingCount": 55,
       "featured": false,
       "bestSeller": false,
-      "image": "the-selfish-gene.svg",
+      "image": "https://covers.openlibrary.org/b/id/133936-L.jpg",
       "reviews": [
         {
           "reviewerIndex": 9,
@@ -3008,7 +3008,7 @@
       "ratingCount": 929,
       "featured": false,
       "bestSeller": false,
-      "image": "silent-spring.svg",
+      "image": "https://covers.openlibrary.org/b/id/3825693-L.jpg",
       "reviews": [
         {
           "reviewerIndex": 15,
@@ -3047,7 +3047,7 @@
       "ratingCount": 298,
       "featured": true,
       "bestSeller": false,
-      "image": "the-gene-an-intimate-history.svg",
+      "image": "https://upload.wikimedia.org/wikipedia/en/8/81/The_Gene_An_Intimate_History_cover.jpg",
       "reviews": [
         {
           "reviewerIndex": 18,
@@ -3086,7 +3086,7 @@
       "ratingCount": 804,
       "featured": false,
       "bestSeller": false,
-      "image": "astrophysics-for-people-in-a-hurry.svg",
+      "image": "https://covers.openlibrary.org/b/id/7984709-L.jpg",
       "reviews": [
         {
           "reviewerIndex": 9,
@@ -3203,7 +3203,7 @@
       "ratingCount": 199,
       "featured": true,
       "bestSeller": true,
-      "image": "yayati.svg",
+      "image": "https://upload.wikimedia.org/wikipedia/en/5/52/Yayati_English_translation_cover.jpeg",
       "reviews": [
         {
           "reviewerIndex": 2,
@@ -3281,7 +3281,7 @@
       "ratingCount": 133,
       "featured": false,
       "bestSeller": true,
-      "image": "mrityunjay.svg",
+      "image": "https://covers.openlibrary.org/b/id/7360775-L.jpg",
       "reviews": [
         {
           "reviewerIndex": 22,
@@ -3359,7 +3359,7 @@
       "ratingCount": 514,
       "featured": false,
       "bestSeller": true,
-      "image": "godaan.svg",
+      "image": "https://covers.openlibrary.org/b/id/9388966-L.jpg",
       "reviews": [
         {
           "reviewerIndex": 2,
@@ -3398,7 +3398,7 @@
       "ratingCount": 624,
       "featured": false,
       "bestSeller": false,
-      "image": "gaban.svg",
+      "image": "https://covers.openlibrary.org/b/id/5436685-L.jpg",
       "reviews": [
         {
           "reviewerIndex": 10,
@@ -3437,7 +3437,7 @@
       "ratingCount": 181,
       "featured": true,
       "bestSeller": false,
-      "image": "chandrakanta.svg",
+      "image": "https://covers.openlibrary.org/b/id/10874460-L.jpg",
       "reviews": [
         {
           "reviewerIndex": 10,
@@ -3476,7 +3476,7 @@
       "ratingCount": 880,
       "featured": true,
       "bestSeller": true,
-      "image": "madhushala.svg",
+      "image": "https://upload.wikimedia.org/wikipedia/en/8/82/Madhushala.jpg",
       "reviews": [
         {
           "reviewerIndex": 4,
@@ -3671,7 +3671,7 @@
       "ratingCount": 201,
       "featured": true,
       "bestSeller": true,
-      "image": "gitanjali.svg",
+      "image": "https://covers.openlibrary.org/b/id/8246100-L.jpg",
       "reviews": [
         {
           "reviewerIndex": 18,
@@ -3710,7 +3710,7 @@
       "ratingCount": 716,
       "featured": false,
       "bestSeller": false,
-      "image": "devdas.svg",
+      "image": "https://covers.openlibrary.org/b/id/111015-L.jpg",
       "reviews": [
         {
           "reviewerIndex": 16,
@@ -3749,7 +3749,7 @@
       "ratingCount": 505,
       "featured": true,
       "bestSeller": true,
-      "image": "sonar-kella.svg",
+      "image": "https://upload.wikimedia.org/wikipedia/en/5/56/Sonar_Kella_book_front_cover.jpg",
       "reviews": [
         {
           "reviewerIndex": 23,
@@ -3827,7 +3827,7 @@
       "ratingCount": 532,
       "featured": false,
       "bestSeller": false,
-      "image": "chokher-bali.svg",
+      "image": "https://upload.wikimedia.org/wikipedia/en/0/06/Chokher_Bali_%28novel%29_book_cover.jpg",
       "reviews": [
         {
           "reviewerIndex": 5,
@@ -3866,7 +3866,7 @@
       "ratingCount": 599,
       "featured": false,
       "bestSeller": false,
-      "image": "saraswatichandra.svg",
+      "image": "https://upload.wikimedia.org/wikipedia/en/e/ea/Sarasvatichandra_Part_I_cover_page.jpeg",
       "reviews": [
         {
           "reviewerIndex": 4,
@@ -3905,7 +3905,7 @@
       "ratingCount": 690,
       "featured": false,
       "bestSeller": false,
-      "image": "manvini-bhavai.svg",
+      "image": "https://upload.wikimedia.org/wikipedia/commons/7/76/Cover_of_Manvini_Bhavai.svg",
       "reviews": [
         {
           "reviewerIndex": 18,
@@ -3983,7 +3983,7 @@
       "ratingCount": 555,
       "featured": false,
       "bestSeller": false,
-      "image": "satyana-prayogo.svg",
+      "image": "https://covers.openlibrary.org/b/id/7236858-L.jpg",
       "reviews": [
         {
           "reviewerIndex": 9,
@@ -4022,7 +4022,7 @@
       "ratingCount": 543,
       "featured": false,
       "bestSeller": false,
-      "image": "bhadrambhadra.svg",
+      "image": "https://upload.wikimedia.org/wikipedia/en/e/e9/Bhadrambhadra_book_cover.jpeg",
       "reviews": [
         {
           "reviewerIndex": 18,
@@ -4061,7 +4061,7 @@
       "ratingCount": 367,
       "featured": false,
       "bestSeller": false,
-      "image": "ponniyin-selvan.svg",
+      "image": "https://covers.openlibrary.org/b/olid/OL170659M-L.jpg",
       "reviews": [
         {
           "reviewerIndex": 9,
@@ -4139,7 +4139,7 @@
       "ratingCount": 324,
       "featured": true,
       "bestSeller": true,
-      "image": "thirukkural.svg",
+      "image": "https://covers.openlibrary.org/b/id/7985775-L.jpg",
       "reviews": [
         {
           "reviewerIndex": 5,
@@ -4217,7 +4217,7 @@
       "ratingCount": 170,
       "featured": false,
       "bestSeller": false,
-      "image": "parthiban-kanavu.svg",
+      "image": "https://upload.wikimedia.org/wikipedia/en/5/5b/Parthiban_Kanavu.jpg",
       "reviews": [
         {
           "reviewerIndex": 20,
@@ -4607,7 +4607,7 @@
       "ratingCount": 843,
       "featured": false,
       "bestSeller": false,
-      "image": "parva.svg",
+      "image": "https://upload.wikimedia.org/wikipedia/en/e/ec/SL-Byrappa-Parva.jpg",
       "reviews": [
         {
           "reviewerIndex": 16,
@@ -4685,7 +4685,7 @@
       "ratingCount": 46,
       "featured": false,
       "bestSeller": true,
-      "image": "chemmeen.svg",
+      "image": "https://covers.openlibrary.org/b/id/15246165-L.jpg",
       "reviews": [
         {
           "reviewerIndex": 21,
@@ -4724,7 +4724,7 @@
       "ratingCount": 644,
       "featured": false,
       "bestSeller": false,
-      "image": "oru-desathinte-katha.svg",
+      "image": "https://upload.wikimedia.org/wikipedia/en/8/86/Oru_Desathinte_Katha.jpg",
       "reviews": [
         {
           "reviewerIndex": 8,
@@ -4763,7 +4763,7 @@
       "ratingCount": 483,
       "featured": true,
       "bestSeller": false,
-      "image": "randamoozham.svg",
+      "image": "https://covers.openlibrary.org/b/id/9360354-L.jpg",
       "reviews": [
         {
           "reviewerIndex": 3,
@@ -4802,7 +4802,7 @@
       "ratingCount": 81,
       "featured": false,
       "bestSeller": false,
-      "image": "aadujeevitham.svg",
+      "image": "https://upload.wikimedia.org/wikipedia/en/b/b5/Adujivitam.jpg",
       "reviews": [
         {
           "reviewerIndex": 13,
@@ -4841,7 +4841,7 @@
       "ratingCount": 238,
       "featured": true,
       "bestSeller": true,
-      "image": "khasakkinte-itihasam.svg",
+      "image": "https://covers.openlibrary.org/b/id/9360351-L.jpg",
       "reviews": [
         {
           "reviewerIndex": 12,
@@ -4919,7 +4919,7 @@
       "ratingCount": 338,
       "featured": false,
       "bestSeller": true,
-      "image": "pinjar.svg",
+      "image": "https://upload.wikimedia.org/wikipedia/en/a/ad/Pinjar_%28novel%29.jpg",
       "reviews": [
         {
           "reviewerIndex": 14,
@@ -5153,7 +5153,7 @@
       "ratingCount": 424,
       "featured": true,
       "bestSeller": false,
-      "image": "deewan-e-ghalib.svg",
+      "image": "https://upload.wikimedia.org/wikipedia/commons/9/97/Diwan-e-Ghalib_Muraq-e-Chugtai%2C_1927.jpg",
       "reviews": [
         {
           "reviewerIndex": 4,
@@ -5192,7 +5192,7 @@
       "ratingCount": 887,
       "featured": true,
       "bestSeller": false,
-      "image": "basti.svg",
+      "image": "https://covers.openlibrary.org/b/id/12527882-L.jpg",
       "reviews": [
         {
           "reviewerIndex": 11,
@@ -5309,7 +5309,7 @@
       "ratingCount": 622,
       "featured": false,
       "bestSeller": false,
-      "image": "the-bhagavad-gita.svg",
+      "image": "https://upload.wikimedia.org/wikipedia/commons/a/a5/BhagavadGita-19th-century-Illustrated-Sanskrit-Chapter_1.20.21.jpg",
       "reviews": [
         {
           "reviewerIndex": 23,
@@ -5348,7 +5348,7 @@
       "ratingCount": 63,
       "featured": true,
       "bestSeller": false,
-      "image": "autobiography-of-a-yogi.svg",
+      "image": "https://covers.openlibrary.org/b/id/805448-L.jpg",
       "reviews": [
         {
           "reviewerIndex": 21,
@@ -5387,7 +5387,7 @@
       "ratingCount": 651,
       "featured": false,
       "bestSeller": true,
-      "image": "the-power-of-now.svg",
+      "image": "https://covers.openlibrary.org/b/id/551262-L.jpg",
       "reviews": [
         {
           "reviewerIndex": 22,
@@ -5426,7 +5426,7 @@
       "ratingCount": 785,
       "featured": false,
       "bestSeller": false,
-      "image": "siddhartha.svg",
+      "image": "https://covers.openlibrary.org/b/id/6562535-L.jpg",
       "reviews": [
         {
           "reviewerIndex": 21,
@@ -5465,7 +5465,7 @@
       "ratingCount": 937,
       "featured": true,
       "bestSeller": true,
-      "image": "the-four-agreements.svg",
+      "image": "https://covers.openlibrary.org/b/id/924521-L.jpg",
       "reviews": [
         {
           "reviewerIndex": 17,
@@ -5504,7 +5504,7 @@
       "ratingCount": 764,
       "featured": false,
       "bestSeller": false,
-      "image": "the-monk-who-sold-his-ferrari.svg",
+      "image": "https://covers.openlibrary.org/b/id/48817-L.jpg",
       "reviews": [
         {
           "reviewerIndex": 19,
@@ -5543,7 +5543,7 @@
       "ratingCount": 143,
       "featured": false,
       "bestSeller": false,
-      "image": "a-mathematician-s-apology.svg",
+      "image": "https://covers.openlibrary.org/b/id/9753744-L.jpg",
       "reviews": [
         {
           "reviewerIndex": 0,
@@ -5582,7 +5582,7 @@
       "ratingCount": 548,
       "featured": false,
       "bestSeller": false,
-      "image": "the-elements-of-style.svg",
+      "image": "https://covers.openlibrary.org/b/id/10515358-L.jpg",
       "reviews": [
         {
           "reviewerIndex": 0,
@@ -5621,7 +5621,7 @@
       "ratingCount": 679,
       "featured": true,
       "bestSeller": true,
-      "image": "how-to-read-a-book.svg",
+      "image": "https://covers.openlibrary.org/b/id/405381-L.jpg",
       "reviews": [
         {
           "reviewerIndex": 15,
@@ -5660,7 +5660,7 @@
       "ratingCount": 689,
       "featured": true,
       "bestSeller": false,
-      "image": "pedagogy-of-the-oppressed.svg",
+      "image": "https://covers.openlibrary.org/b/id/99306-L.jpg",
       "reviews": [
         {
           "reviewerIndex": 1,
@@ -5699,7 +5699,7 @@
       "ratingCount": 631,
       "featured": false,
       "bestSeller": false,
-      "image": "ignited-minds.svg",
+      "image": "https://covers.openlibrary.org/b/id/10369810-L.jpg",
       "reviews": [
         {
           "reviewerIndex": 5,
@@ -5738,7 +5738,7 @@
       "ratingCount": 849,
       "featured": false,
       "bestSeller": true,
-      "image": "outliers-the-story-of-success.svg",
+      "image": "https://upload.wikimedia.org/wikipedia/en/e/ec/Outliers_%28book_cover%29.png",
       "reviews": [
         {
           "reviewerIndex": 0,
@@ -5777,7 +5777,7 @@
       "ratingCount": 128,
       "featured": true,
       "bestSeller": true,
-      "image": "lucent-s-general-knowledge.svg",
+      "image": "https://archive.org/services/img/lucent-general-knowledge-gk-book-pdf-in-english-download",
       "reviews": [
         {
           "reviewerIndex": 9,
@@ -5816,7 +5816,7 @@
       "ratingCount": 678,
       "featured": true,
       "bestSeller": false,
-      "image": "quantitative-aptitude-for-competitive-examinations.svg",
+      "image": "https://covers.openlibrary.org/b/id/10281709-L.jpg",
       "reviews": [
         {
           "reviewerIndex": 10,
@@ -5855,7 +5855,7 @@
       "ratingCount": 498,
       "featured": false,
       "bestSeller": false,
-      "image": "objective-general-english.svg",
+      "image": "https://covers.openlibrary.org/b/isbn/9789351768449-L.jpg",
       "reviews": [
         {
           "reviewerIndex": 5,
@@ -5894,7 +5894,7 @@
       "ratingCount": 617,
       "featured": false,
       "bestSeller": false,
-      "image": "fast-track-objective-arithmetic.svg",
+      "image": "https://covers.openlibrary.org/b/id/10292457-L.jpg",
       "reviews": [
         {
           "reviewerIndex": 15,
@@ -5933,7 +5933,7 @@
       "ratingCount": 364,
       "featured": false,
       "bestSeller": false,
-      "image": "indian-polity.svg",
+      "image": "https://covers.openlibrary.org/b/isbn/9789352603633-L.jpg",
       "reviews": [
         {
           "reviewerIndex": 9,
@@ -6011,7 +6011,7 @@
       "ratingCount": 411,
       "featured": true,
       "bestSeller": false,
-      "image": "good-to-great.svg",
+      "image": "https://covers.openlibrary.org/b/id/7431270-L.jpg",
       "reviews": [
         {
           "reviewerIndex": 5,
@@ -6050,7 +6050,7 @@
       "ratingCount": 56,
       "featured": false,
       "bestSeller": false,
-      "image": "the-innovator-s-dilemma.svg",
+      "image": "https://upload.wikimedia.org/wikipedia/en/e/ec/The_Innovator%27s_Dilemma.jpg",
       "reviews": [
         {
           "reviewerIndex": 8,
@@ -6089,7 +6089,7 @@
       "ratingCount": 469,
       "featured": true,
       "bestSeller": false,
-      "image": "built-to-last.svg",
+      "image": "https://covers.openlibrary.org/b/id/684195-L.jpg",
       "reviews": [
         {
           "reviewerIndex": 18,
@@ -6128,7 +6128,7 @@
       "ratingCount": 765,
       "featured": false,
       "bestSeller": false,
-      "image": "blue-ocean-strategy.svg",
+      "image": "https://covers.openlibrary.org/b/id/8219313-L.jpg",
       "reviews": [
         {
           "reviewerIndex": 0,
@@ -6167,7 +6167,7 @@
       "ratingCount": 902,
       "featured": true,
       "bestSeller": false,
-      "image": "the-five-dysfunctions-of-a-team.svg",
+      "image": "https://covers.openlibrary.org/b/id/468704-L.jpg",
       "reviews": [
         {
           "reviewerIndex": 6,
@@ -6206,7 +6206,7 @@
       "ratingCount": 572,
       "featured": true,
       "bestSeller": true,
-      "image": "who-moved-my-cheese.svg",
+      "image": "https://covers.openlibrary.org/b/id/258839-L.jpg",
       "reviews": [
         {
           "reviewerIndex": 16,
@@ -6245,7 +6245,7 @@
       "ratingCount": 609,
       "featured": true,
       "bestSeller": true,
-      "image": "wings-of-fire.svg",
+      "image": "https://covers.openlibrary.org/b/id/9153819-L.jpg",
       "reviews": [
         {
           "reviewerIndex": 11,
@@ -6284,7 +6284,7 @@
       "ratingCount": 871,
       "featured": false,
       "bestSeller": true,
-      "image": "steve-jobs.svg",
+      "image": "https://covers.openlibrary.org/b/id/12374726-L.jpg",
       "reviews": [
         {
           "reviewerIndex": 1,
@@ -6323,7 +6323,7 @@
       "ratingCount": 495,
       "featured": false,
       "bestSeller": false,
-      "image": "long-walk-to-freedom.svg",
+      "image": "https://covers.openlibrary.org/b/id/12702407-L.jpg",
       "reviews": [
         {
           "reviewerIndex": 3,
@@ -6362,7 +6362,7 @@
       "ratingCount": 170,
       "featured": true,
       "bestSeller": false,
-      "image": "the-diary-of-a-young-girl.svg",
+      "image": "https://covers.openlibrary.org/b/id/13521319-L.jpg",
       "reviews": [
         {
           "reviewerIndex": 13,
@@ -6401,7 +6401,7 @@
       "ratingCount": 588,
       "featured": false,
       "bestSeller": true,
-      "image": "my-experiments-with-truth.svg",
+      "image": "https://covers.openlibrary.org/b/id/15218004-L.jpg",
       "reviews": [
         {
           "reviewerIndex": 10,
@@ -6440,7 +6440,7 @@
       "ratingCount": 898,
       "featured": false,
       "bestSeller": false,
-      "image": "becoming.svg",
+      "image": "https://covers.openlibrary.org/b/id/8824664-L.jpg",
       "reviews": [
         {
           "reviewerIndex": 18,
@@ -6479,7 +6479,7 @@
       "ratingCount": 728,
       "featured": true,
       "bestSeller": false,
-      "image": "playing-it-my-way.svg",
+      "image": "https://covers.openlibrary.org/b/id/10400033-L.jpg",
       "reviews": [
         {
           "reviewerIndex": 0,
@@ -6518,7 +6518,7 @@
       "ratingCount": 291,
       "featured": false,
       "bestSeller": true,
-      "image": "the-da-vinci-code.svg",
+      "image": "https://covers.openlibrary.org/b/id/9255229-L.jpg",
       "reviews": [
         {
           "reviewerIndex": 14,
@@ -6557,7 +6557,7 @@
       "ratingCount": 89,
       "featured": false,
       "bestSeller": true,
-      "image": "gone-girl.svg",
+      "image": "https://covers.openlibrary.org/b/id/8368314-L.jpg",
       "reviews": [
         {
           "reviewerIndex": 11,
@@ -6596,7 +6596,7 @@
       "ratingCount": 739,
       "featured": false,
       "bestSeller": false,
-      "image": "and-then-there-were-none.svg",
+      "image": "https://covers.openlibrary.org/b/id/11172296-L.jpg",
       "reviews": [
         {
           "reviewerIndex": 18,
@@ -6635,7 +6635,7 @@
       "ratingCount": 434,
       "featured": false,
       "bestSeller": false,
-      "image": "the-girl-with-the-dragon-tattoo.svg",
+      "image": "https://upload.wikimedia.org/wikipedia/en/b/bc/Thegirlwiththedragontattoo.jpg",
       "reviews": [
         {
           "reviewerIndex": 14,
@@ -6674,7 +6674,7 @@
       "ratingCount": 581,
       "featured": false,
       "bestSeller": false,
-      "image": "a-study-in-scarlet.svg",
+      "image": "https://covers.openlibrary.org/b/id/13405534-L.jpg",
       "reviews": [
         {
           "reviewerIndex": 22,
@@ -6713,7 +6713,7 @@
       "ratingCount": 324,
       "featured": false,
       "bestSeller": false,
-      "image": "the-silent-patient.svg",
+      "image": "https://covers.openlibrary.org/b/id/9407338-L.jpg",
       "reviews": [
         {
           "reviewerIndex": 0,
@@ -6752,7 +6752,7 @@
       "ratingCount": 138,
       "featured": false,
       "bestSeller": false,
-      "image": "six-suspects.svg",
+      "image": "https://covers.openlibrary.org/b/id/7114817-L.jpg",
       "reviews": [
         {
           "reviewerIndex": 13,
@@ -6791,7 +6791,7 @@
       "ratingCount": 59,
       "featured": true,
       "bestSeller": false,
-      "image": "leaves-of-grass.svg",
+      "image": "https://covers.openlibrary.org/b/id/9000447-L.jpg",
       "reviews": [
         {
           "reviewerIndex": 0,
@@ -6830,7 +6830,7 @@
       "ratingCount": 226,
       "featured": true,
       "bestSeller": false,
-      "image": "the-waste-land.svg",
+      "image": "https://covers.openlibrary.org/b/id/115288-L.jpg",
       "reviews": [
         {
           "reviewerIndex": 12,
@@ -6869,7 +6869,7 @@
       "ratingCount": 932,
       "featured": false,
       "bestSeller": false,
-      "image": "where-the-sidewalk-ends.svg",
+      "image": "https://covers.openlibrary.org/b/id/31070-L.jpg",
       "reviews": [
         {
           "reviewerIndex": 13,
@@ -6908,7 +6908,7 @@
       "ratingCount": 886,
       "featured": false,
       "bestSeller": false,
-      "image": "milk-and-honey.svg",
+      "image": "https://covers.openlibrary.org/b/id/8743595-L.jpg",
       "reviews": [
         {
           "reviewerIndex": 17,
@@ -6947,7 +6947,7 @@
       "ratingCount": 626,
       "featured": true,
       "bestSeller": false,
-      "image": "the-sun-and-her-flowers.svg",
+      "image": "https://covers.openlibrary.org/b/id/8084615-L.jpg",
       "reviews": [
         {
           "reviewerIndex": 19,
@@ -6986,7 +6986,7 @@
       "ratingCount": 768,
       "featured": false,
       "bestSeller": false,
-      "image": "ariel.svg",
+      "image": "https://covers.openlibrary.org/b/id/33279-L.jpg",
       "reviews": [
         {
           "reviewerIndex": 22,
@@ -7025,7 +7025,7 @@
       "ratingCount": 595,
       "featured": true,
       "bestSeller": true,
-      "image": "the-body-keeps-the-score.svg",
+      "image": "https://covers.openlibrary.org/b/id/8315367-L.jpg",
       "reviews": [
         {
           "reviewerIndex": 13,
@@ -7064,7 +7064,7 @@
       "ratingCount": 122,
       "featured": false,
       "bestSeller": true,
-      "image": "breath-the-new-science-of-a-lost-art.svg",
+      "image": "https://upload.wikimedia.org/wikipedia/en/a/a2/Breath_%28James_Nestor%29.png",
       "reviews": [
         {
           "reviewerIndex": 11,
@@ -7103,7 +7103,7 @@
       "ratingCount": 553,
       "featured": false,
       "bestSeller": false,
-      "image": "why-we-sleep.svg",
+      "image": "https://covers.openlibrary.org/b/id/8814155-L.jpg",
       "reviews": [
         {
           "reviewerIndex": 19,
@@ -7142,7 +7142,7 @@
       "ratingCount": 730,
       "featured": true,
       "bestSeller": false,
-      "image": "the-blue-zones.svg",
+      "image": "https://covers.openlibrary.org/b/id/6302240-L.jpg",
       "reviews": [
         {
           "reviewerIndex": 4,
@@ -7181,7 +7181,7 @@
       "ratingCount": 867,
       "featured": false,
       "bestSeller": false,
-      "image": "grain-brain.svg",
+      "image": "https://covers.openlibrary.org/b/id/7598066-L.jpg",
       "reviews": [
         {
           "reviewerIndex": 19,
@@ -7220,7 +7220,7 @@
       "ratingCount": 124,
       "featured": false,
       "bestSeller": false,
-      "image": "the-china-study.svg",
+      "image": "https://covers.openlibrary.org/b/id/7254516-L.jpg",
       "reviews": [
         {
           "reviewerIndex": 3,
@@ -7259,7 +7259,7 @@
       "ratingCount": 343,
       "featured": false,
       "bestSeller": false,
-      "image": "the-psychology-of-money.svg",
+      "image": "https://upload.wikimedia.org/wikipedia/en/2/20/The_Psychology_of_Money_cover.jpg",
       "reviews": [
         {
           "reviewerIndex": 6,
@@ -7298,7 +7298,7 @@
       "ratingCount": 247,
       "featured": false,
       "bestSeller": false,
-      "image": "the-intelligent-investor.svg",
+      "image": "https://covers.openlibrary.org/b/id/36434-L.jpg",
       "reviews": [
         {
           "reviewerIndex": 23,
@@ -7337,7 +7337,7 @@
       "ratingCount": 237,
       "featured": false,
       "bestSeller": false,
-      "image": "one-up-on-wall-street.svg",
+      "image": "https://covers.openlibrary.org/b/id/6241104-L.jpg",
       "reviews": [
         {
           "reviewerIndex": 0,
@@ -7376,7 +7376,7 @@
       "ratingCount": 394,
       "featured": true,
       "bestSeller": true,
-      "image": "common-stocks-and-uncommon-profits.svg",
+      "image": "https://covers.openlibrary.org/b/olid/OL7613995M-L.jpg",
       "reviews": [
         {
           "reviewerIndex": 10,
@@ -7415,7 +7415,7 @@
       "ratingCount": 126,
       "featured": false,
       "bestSeller": false,
-      "image": "let-s-talk-money.svg",
+      "image": "https://covers.openlibrary.org/b/id/10448525-L.jpg",
       "reviews": [
         {
           "reviewerIndex": 18,
@@ -7454,7 +7454,7 @@
       "ratingCount": 739,
       "featured": false,
       "bestSeller": true,
-      "image": "coffee-can-investing.svg",
+      "image": "https://covers.openlibrary.org/b/id/10848634-L.jpg",
       "reviews": [
         {
           "reviewerIndex": 12,
@@ -7493,7 +7493,7 @@
       "ratingCount": 706,
       "featured": true,
       "bestSeller": false,
-      "image": "the-richest-man-in-babylon.svg",
+      "image": "https://covers.openlibrary.org/b/id/10491331-L.jpg",
       "reviews": [
         {
           "reviewerIndex": 0,
@@ -7532,7 +7532,7 @@
       "ratingCount": 598,
       "featured": false,
       "bestSeller": false,
-      "image": "meditations.svg",
+      "image": "https://covers.openlibrary.org/b/id/211529-L.jpg",
       "reviews": [
         {
           "reviewerIndex": 9,
@@ -7571,7 +7571,7 @@
       "ratingCount": 718,
       "featured": false,
       "bestSeller": false,
-      "image": "thus-spoke-zarathustra.svg",
+      "image": "https://upload.wikimedia.org/wikipedia/commons/d/d5/Also_sprach_Zarathustra._Ein_Buch_f%C3%BCr_Alle_und_Keinen._In_drei_Theilen.jpg",
       "reviews": [
         {
           "reviewerIndex": 14,
@@ -7610,7 +7610,7 @@
       "ratingCount": 881,
       "featured": false,
       "bestSeller": false,
-      "image": "the-republic.svg",
+      "image": "https://upload.wikimedia.org/wikipedia/commons/7/7b/Politeia_beginning._Codex_Parisinus_graecus_1807.jpg",
       "reviews": [
         {
           "reviewerIndex": 22,
@@ -7649,7 +7649,7 @@
       "ratingCount": 85,
       "featured": true,
       "bestSeller": false,
-      "image": "the-nicomachean-ethics.svg",
+      "image": "https://upload.wikimedia.org/wikipedia/commons/8/82/Aristotelis_De_Moribus_ad_Nicomachum.jpg",
       "reviews": [
         {
           "reviewerIndex": 22,
@@ -7688,7 +7688,7 @@
       "ratingCount": 398,
       "featured": false,
       "bestSeller": false,
-      "image": "tao-te-ching.svg",
+      "image": "https://covers.openlibrary.org/b/id/662232-L.jpg",
       "reviews": [
         {
           "reviewerIndex": 2,
@@ -7727,7 +7727,7 @@
       "ratingCount": 385,
       "featured": true,
       "bestSeller": false,
-      "image": "discourse-on-the-method.svg",
+      "image": "https://covers.openlibrary.org/b/id/2822386-L.jpg",
       "reviews": [
         {
           "reviewerIndex": 11,

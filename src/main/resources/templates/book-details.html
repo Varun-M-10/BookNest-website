@@ -202,7 +202,8 @@
                 <div class="row g-4">
                     <div class="col-lg-4 col-md-5 mb-4">
                         <div class="book-image-container shadow">
-                            <img th:src="${book.imageUrl}" alt="Book Cover">
+                            <img th:src="${book.imageUrl}" th:alt="${book.title + ' book cover'}"
+                                 onerror="this.onerror=null;this.src='/images/books/_cover-unavailable.svg'">
                         </div>
                     </div>
 
@@ -461,7 +462,8 @@
                     <div th:each="relatedBook : ${relatedBooks}" class="col-md-2 col-sm-4 col-6 mb-4">
                         <div class="card related-book-card border-0">
                             <a th:href="@{/book/{id}(id=${relatedBook.id})}">
-                                <img th:src="${relatedBook.imageUrl}" class="card-img-top" alt="Related Book" style="height: 200px; object-fit: cover;">
+                                <img th:src="${relatedBook.imageUrl}" class="card-img-top" th:alt="${relatedBook.title + ' book cover'}" style="height: 200px; object-fit: cover;"
+                                     onerror="this.onerror=null;this.src='/images/books/_cover-unavailable.svg'">
                             </a>
                             <div class="card-body p-3">
                                 <h6 class="card-title text-truncate mb-1" th:text="${relatedBook.title}"></h6>

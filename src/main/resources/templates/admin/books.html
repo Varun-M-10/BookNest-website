@@ -139,9 +139,10 @@
                                 <tbody>
                                     <tr th:each="book : ${books}">
                                         <td>
-                                            <img th:src="${book.imageUrl}" alt="Book Cover" 
-                                                 style="width: 48px; height: 68px; object-fit: cover;" 
-                                                 class="rounded shadow-sm">
+                                            <img th:src="${book.imageUrl}" th:alt="${book.title + ' book cover'}"
+                                                 style="width: 48px; height: 68px; object-fit: cover;"
+                                                 class="rounded shadow-sm"
+                                                 onerror="this.onerror=null;this.src='/images/books/_cover-unavailable.svg'">
                                         </td>
                                         <td>
                                             <div class="fw-bold text-dark" th:text="${book.title}">Title</div>
