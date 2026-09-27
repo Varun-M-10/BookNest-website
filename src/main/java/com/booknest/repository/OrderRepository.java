@@ -20,6 +20,8 @@ public interface OrderRepository extends JpaRepository<Order, Long> {
 
     Optional<Order> findByOrderNumber(String orderNumber);
 
+    Optional<Order> findFirstByUserIdOrderByCreatedAtDesc(Long userId);
+
     Boolean existsByOrderNumber(String orderNumber);
 
     @Query("SELECT o FROM Order o WHERE o.user.id = :userId ORDER BY o.createdAt DESC")

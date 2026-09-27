@@ -2,17 +2,25 @@ package com.booknest.entity;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
-import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
+import lombok.ToString;
 
 import java.math.BigDecimal;
 
 /**
  * OrderItem Entity for items in an order
+ *
+ * Identity equals/hashCode (see Order): value-based equality would also make
+ * two new items with the same quantity and price collapse into one entry in
+ * Order.orderItems.
  */
 @Entity
 @Table(name = "order_items")
-@Data
+@Getter
+@Setter
+@ToString(exclude = {"order", "book"})
 @NoArgsConstructor
 @AllArgsConstructor
 public class OrderItem {
@@ -24,9 +32,11 @@ public class OrderItem {
     @Column(nullable = false)
     private Integer quantity;
 
+    /** Unit price actually charged, i.e. the book's discounted price at order time. */
     @Column(nullable = false, precision = 10, scale = 2)
     private BigDecimal price;
 
+    /** Discount percentage that was already applied to {@link #price}; kept for reference. */
     @Column(nullable = false, precision = 10, scale = 2)
     private BigDecimal discount;
 
@@ -44,10 +54,10 @@ public class OrderItem {
     @PrePersist
     @PreUpdate
     protected void calculateTotalPrice() {
+        // price is already discounted; applying discount again here used to
+        // charge the discount twice on every line total.
         if (price != null && quantity != null) {
-            BigDecimal itemDiscount = discount != null ? discount : BigDecimal.ZERO;
-            BigDecimal effectivePrice = price.subtract(price.multiply(itemDiscount.divide(BigDecimal.valueOf(100))));
-            totalPrice = effectivePrice.multiply(BigDecimal.valueOf(quantity));
+            totalPrice = price.multiply(BigDecimal.valueOf(quantity));
         }
     }
 }

@@ -9,6 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Optional;
 
 /**
  * Service class for Order operations
@@ -22,17 +23,28 @@ public class OrderService {
     private final CartService cartService;
     private final BookService bookService;
 
+    /**
+     * Turns the user's cart into an order. Runs in one transaction: the order,
+     * its items, its payment, the stock updates and the cart clear either all
+     * commit or all roll back, so a failed order never empties the cart.
+     */
     public Order createOrder(User user, Address shippingAddress, String paymentMethod, String deliveryOption, String notes) {
-        Cart cart = cartService.getCartByUser(user);
+        Cart cart = cartService.getCartForCheckout(user);
 
         if (cart.getCartItems() == null || cart.getCartItems().isEmpty()) {
-            throw new RuntimeException("Your cart is empty");
+            throw OrderPlacementException.emptyCart();
         }
 
-        // Validate stock for all items
+        // Validate every item before touching anything
         for (CartItem item : cart.getCartItems()) {
-            if (item.getBook().getStock() < item.getQuantity()) {
-                throw new RuntimeException("Insufficient stock for '" + item.getBook().getTitle() + "'. Available: " + item.getBook().getStock());
+            Book book = item.getBook();
+            if (book == null) {
+                throw new OrderPlacementException("A book in your cart is no longer available. Please review your cart.");
+            }
+            if (book.getStock() == null || book.getStock() < item.getQuantity()) {
+                int available = book.getStock() != null ? Math.max(book.getStock(), 0) : 0;
+                throw new OrderPlacementException("Only " + available + " left in stock for '" + book.getTitle()
+                        + "'. Please update the quantity in your cart.");
             }
         }
 
@@ -41,47 +53,61 @@ public class OrderService {
         order.setShippingAddress(shippingAddress);
         order.setNotes(notes);
 
-        BigDecimal subtotal = cart.getTotalAmount();
+        BigDecimal subtotal = BigDecimal.ZERO;
+        int totalItems = 0;
+        for (CartItem cartItem : cart.getCartItems()) {
+            Book book = cartItem.getBook();
+            OrderItem orderItem = new OrderItem();
+            orderItem.setOrder(order);
+            orderItem.setBook(book);
+            orderItem.setQuantity(cartItem.getQuantity());
+            orderItem.setPrice(book.getDiscountedPrice());
+            orderItem.setDiscount(book.getDiscount() != null ? book.getDiscount() : BigDecimal.ZERO);
+            order.getOrderItems().add(orderItem);
+
+            subtotal = subtotal.add(book.getDiscountedPrice().multiply(BigDecimal.valueOf(cartItem.getQuantity())));
+            totalItems += cartItem.getQuantity();
+
+            // Decrement stock & increment sold count
+            bookService.incrementSoldCount(book.getId(), cartItem.getQuantity());
+        }
+
         BigDecimal shippingAmount = "EXPRESS".equalsIgnoreCase(deliveryOption) ? new BigDecimal("99.00") : BigDecimal.ZERO;
-        BigDecimal finalAmount = subtotal.add(shippingAmount);
 
         order.setTotalAmount(subtotal);
         order.setDiscountAmount(BigDecimal.ZERO);
         order.setShippingAmount(shippingAmount);
-        order.setFinalAmount(finalAmount);
-        order.setTotalItems(cart.getTotalItems());
+        order.setFinalAmount(subtotal.add(shippingAmount));
+        order.setTotalItems(totalItems);
 
         boolean isOnlinePayment = "CARD".equalsIgnoreCase(paymentMethod) || "UPI".equalsIgnoreCase(paymentMethod);
         order.setPaymentMethod(paymentMethod != null ? paymentMethod : "COD");
         order.setStatus(isOnlinePayment ? "PROCESSING" : "PENDING");
         order.setPaymentStatus(isOnlinePayment ? "PAID" : "PENDING");
 
-        for (CartItem cartItem : cart.getCartItems()) {
-            OrderItem orderItem = new OrderItem();
-            orderItem.setOrder(order);
-            orderItem.setBook(cartItem.getBook());
-            orderItem.setQuantity(cartItem.getQuantity());
-            orderItem.setPrice(cartItem.getBook().getDiscountedPrice());
-            orderItem.setDiscount(cartItem.getBook().getDiscount());
-            order.getOrderItems().add(orderItem);
-
-            // Decrement stock & increment sold count
-            bookService.incrementSoldCount(cartItem.getBook().getId(), cartItem.getQuantity());
-        }
-
-        Order savedOrder = orderRepository.save(order);
-
         Payment payment = new Payment();
-        payment.setOrder(savedOrder);
-        payment.setAmount(savedOrder.getFinalAmount());
+        payment.setOrder(order);
+        payment.setAmount(order.getFinalAmount());
         payment.setStatus(isOnlinePayment ? "SUCCESS" : "PENDING");
         payment.setPaymentMethod(order.getPaymentMethod());
         payment.setPaymentGateway(isOnlinePayment ? "BookNest Payment Gateway" : "Cash on Delivery");
-        savedOrder.setPayment(payment);
+        order.setPayment(payment);
+
+        Order savedOrder = orderRepository.saveAndFlush(order);
 
         cartService.clearCart(user);
 
-        return orderRepository.save(savedOrder);
+        return savedOrder;
+    }
+
+    /**
+     * The user's latest order if it was placed within the last {@code seconds}
+     * seconds; used to recognise a repeated Place Order submission.
+     */
+    public Optional<Order> findRecentOrder(User user, long seconds) {
+        return orderRepository.findFirstByUserIdOrderByCreatedAtDesc(user.getId())
+                .filter(o -> o.getCreatedAt() != null
+                        && o.getCreatedAt().isAfter(LocalDateTime.now().minusSeconds(seconds)));
     }
 
     @SuppressWarnings("null")

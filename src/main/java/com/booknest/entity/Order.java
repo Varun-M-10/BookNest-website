@@ -2,8 +2,10 @@ package com.booknest.entity;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
-import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
+import lombok.ToString;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
@@ -12,10 +14,16 @@ import java.util.Set;
 
 /**
  * Order Entity for customer orders
+ *
+ * Uses identity equals/hashCode rather than Lombok @Data: the generated
+ * versions walked orderItems -> order -> orderItems and recursed until
+ * StackOverflowError as soon as an item was added to the set.
  */
 @Entity
 @Table(name = "orders")
-@Data
+@Getter
+@Setter
+@ToString(exclude = {"user", "shippingAddress", "payment", "orderItems"})
 @NoArgsConstructor
 @AllArgsConstructor
 public class Order {
@@ -72,7 +80,10 @@ public class Order {
     @JoinColumn(name = "user_id", nullable = false)
     private User user;
 
-    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    // Many orders can ship to the same saved address (Address.orders is the
+    // inverse side). As @OneToOne this was a unique FK, so a repeat order to
+    // a saved address violated the constraint.
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "address_id")
     private Address shippingAddress;
 

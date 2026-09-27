@@ -3,6 +3,8 @@ package com.booknest.controller;
 import com.booknest.entity.*;
 import com.booknest.service.*;
 import lombok.RequiredArgsConstructor;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -16,6 +18,9 @@ import java.util.List;
 @Controller
 @RequiredArgsConstructor
 public class CheckoutController {
+
+    private static final Logger log = LoggerFactory.getLogger(CheckoutController.class);
+    private static final String ORDER_FAILED_MESSAGE = "Unable to place your order right now. Please try again.";
 
     private final UserService userService;
     private final CartService cartService;
@@ -70,7 +75,9 @@ public class CheckoutController {
         Address address = null;
 
         if (addressId != null) {
-            address = addressService.getAddressById(addressId).orElse(null);
+            address = addressService.getAddressById(addressId)
+                    .filter(a -> a.getUser() != null && currentUser.getId().equals(a.getUser().getId()))
+                    .orElse(null);
             if (address != null && phone != null && !phone.isBlank()) {
                 address.setPhone(phone);
                 addressService.saveAddress(currentUser, address);
@@ -98,8 +105,22 @@ public class CheckoutController {
         try {
             Order order = orderService.createOrder(currentUser, address, paymentMethod, deliveryOption, notes);
             return "redirect:/order/success/" + order.getId();
-        } catch (RuntimeException e) {
+        } catch (OrderPlacementException e) {
+            // An empty cart right after an order means Place Order was submitted
+            // twice; the first submission succeeded, so show its confirmation.
+            if (e.isEmptyCart()) {
+                Order recent = orderService.findRecentOrder(currentUser, 60).orElse(null);
+                if (recent != null) {
+                    return "redirect:/order/success/" + recent.getId();
+                }
+                redirectAttributes.addFlashAttribute("error", e.getMessage());
+                return "redirect:/cart";
+            }
             redirectAttributes.addFlashAttribute("error", e.getMessage());
+            return "redirect:/checkout";
+        } catch (RuntimeException e) {
+            log.error("Failed to place order for user {}", currentUser.getId(), e);
+            redirectAttributes.addFlashAttribute("error", ORDER_FAILED_MESSAGE);
             return "redirect:/checkout";
         }
     }

@@ -37,6 +37,17 @@ public class CartService {
         return cart.get();
     }
 
+    /**
+     * Returns the user's cart with a row lock held until the calling
+     * transaction commits, so concurrent checkouts for the same user (e.g. a
+     * double-submitted Place Order) run one after the other and the second one
+     * sees the cart the first one already cleared.
+     */
+    public Cart getCartForCheckout(User user) {
+        cartRepository.findByUserIdForUpdate(user.getId());
+        return getCartByUser(user);
+    }
+
     public Cart addToCart(User user, Long bookId, Integer quantity) {
         Cart cart = getCartByUser(user);
         Book book = bookService.getBookById(bookId)

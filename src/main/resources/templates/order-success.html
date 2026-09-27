@@ -16,12 +16,11 @@
                         <h1 class="fw-bold mb-3" style="font-family: 'Playfair Display', serif;">
                             Order Placed Successfully!
                         </h1>
-                        <p class="lead text-muted mb-4">
-                            Thank you for your purchase. Your order has been confirmed.
-                        </p>
+                        <p class="lead mb-1">Thank you for shopping with BookNest.</p>
+                        <p class="text-muted mb-4">Your order has been placed successfully.</p>
 
                         <div class="alert alert-info d-inline-block px-4 py-2">
-                            <strong>Order Number:</strong> <span class="fw-bold" th:text="${order.orderNumber != null ? order.orderNumber : 'ORD-' + order.id}"></span>
+                            <strong>Order ID:</strong> <span class="fw-bold" th:text="'#' + ${order.orderNumber}"></span>
                         </div>
 
                         <div class="row mt-5 text-start">
@@ -64,34 +63,34 @@
                                                      class="rounded me-3">
                                                 <div>
                                                     <h6 class="mb-0 fw-bold" th:text="${item.book.title}"></h6>
-                                                    <small class="text-muted" th:text="${item.book.author.name}"></small>
+                                                    <small class="text-muted" th:if="${item.book.author != null}" th:text="${item.book.author.name}"></small>
                                                 </div>
                                             </div>
                                         </td>
                                         <td th:text="${item.quantity}"></td>
-                                        <td th:text="'₹' + ${#numbers.formatDecimal(item.price, 0, 'COMMA', 0, 'POINT')}"></td>
-                                        <td class="text-end fw-bold" th:text="'₹' + ${#numbers.formatDecimal(item.totalPrice != null ? item.totalPrice : item.price * item.quantity, 0, 'COMMA', 0, 'POINT')}"></td>
+                                        <td th:text="'₹' + ${@money.format(item.price)}"></td>
+                                        <td class="text-end fw-bold" th:text="'₹' + ${@money.format(item.totalPrice)}"></td>
                                     </tr>
                                 </tbody>
                                 <tfoot>
                                     <tr th:if="${order.shippingAmount != null and order.shippingAmount > 0}">
                                         <td colspan="3" class="text-end text-muted">Shipping Fee</td>
-                                        <td class="text-end fw-bold" th:text="'₹' + ${#numbers.formatDecimal(order.shippingAmount, 0, 'COMMA', 0, 'POINT')}"></td>
+                                        <td class="text-end fw-bold" th:text="'₹' + ${@money.format(order.shippingAmount)}"></td>
                                     </tr>
                                     <tr>
                                         <td colspan="3" class="text-end fw-bold fs-5">Grand Total</td>
-                                        <td class="text-end fw-bold price fs-4" th:text="'₹' + ${#numbers.formatDecimal(order.finalAmount != null ? order.finalAmount : order.totalAmount, 0, 'COMMA', 0, 'POINT')}"></td>
+                                        <td class="text-end fw-bold price fs-4" th:text="'₹' + ${@money.format(order.finalAmount)}"></td>
                                     </tr>
                                 </tfoot>
                             </table>
                         </div>
 
-                        <div class="d-flex justify-content-center gap-3 mt-5">
+                        <div class="d-flex flex-wrap justify-content-center gap-3 mt-5">
                             <a th:href="@{/books}" class="btn btn-outline-primary">
                                 <i class="fas fa-book me-2"></i>Continue Shopping
                             </a>
-                            <a th:href="@{/profile/orders}" class="btn btn-primary">
-                                <i class="fas fa-list me-2"></i>View My Orders
+                            <a th:href="@{/profile/order/{id}(id=${order.id})}" class="btn btn-primary">
+                                <i class="fas fa-receipt me-2"></i>View Order
                             </a>
                         </div>
                     </div>

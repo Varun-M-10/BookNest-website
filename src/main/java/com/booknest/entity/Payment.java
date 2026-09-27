@@ -3,7 +3,9 @@ package com.booknest.entity;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
@@ -14,6 +16,8 @@ import java.time.LocalDateTime;
 @Entity
 @Table(name = "payments")
 @Data
+@EqualsAndHashCode(exclude = "order")
+@ToString(exclude = "order")
 @NoArgsConstructor
 @AllArgsConstructor
 public class Payment {
